@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aldremarkz - Fabricación de Productos de Arcilla</title>
+    <title>Aldremarkz - Portal Interno</title>
     <style>
-        /* ESTILOS GLOBALES */
         * {
             margin: 0;
             padding: 0;
@@ -14,45 +13,90 @@
 
         body {
             font-family: 'Arial', sans-serif;
-            line-height: 1.6;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-container {
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
             color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        .password-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 15px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .login-btn:hover {
+            background: #764ba2;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        /* Estilos del portal interno */
+        .portal-container {
+            display: none;
+            width: 100%;
+            min-height: 100vh;
             background: #f8f9fa;
         }
 
-        /* PALETA DE COLORES ALFARERÍA */
-        :root {
-            --color-primary: #8B4513;
-            --color-secondary: #A0522D;
-            --color-accent: #CD853F;
-            --color-light: #FAF0E6;
-            --color-dark: #5D4037;
-            --color-text: #333333;
-        }
-
-        /* HEADER */
-        header {
-            background: var(--color-dark);
+        .portal-header {
+            background: #2c3e50;
             color: white;
-            padding: 1rem 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .header-container {
-            max-width: 1200px;
-            margin: 0 auto;
+            padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 2rem;
         }
 
-        .logo h1 {
-            font-size: 1.8rem;
-            font-weight: bold;
+        .portal-nav {
+            background: #34495e;
+            padding: 1rem 2rem;
         }
 
         .nav-menu {
@@ -64,530 +108,287 @@
         .nav-menu a {
             color: white;
             text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: background 0.3s ease;
         }
 
         .nav-menu a:hover {
-            color: var(--color-accent);
+            background: #667eea;
         }
 
-        /* HERO SECTION */
-        .hero {
-            background: linear-gradient(rgba(93, 64, 55, 0.8), rgba(93, 64, 55, 0.8)),
-                        url('https://images.unsplash.com/photo-1582001739979-0923871fffe1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
-            background-size: cover;
-            background-position: center;
-            color: white;
-            padding: 140px 2rem 80px;
-            text-align: center;
-        }
-
-        .hero h2 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .hero p {
-            font-size: 1.3rem;
-            max-width: 600px;
-            margin: 0 auto;
-            opacity: 0.9;
-        }
-
-        /* SECCIONES */
-        .section {
-            padding: 80px 2rem;
+        .portal-content {
+            padding: 2rem;
             max-width: 1200px;
             margin: 0 auto;
         }
 
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: var(--color-dark);
-        }
-
-        /* MISIÓN Y VISIÓN */
-        .mission-vision {
-            background: white;
-        }
-
-        .mv-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 3rem;
-        }
-
-        .mv-card {
-            background: var(--color-light);
-            padding: 3rem 2rem;
-            border-radius: 10px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        .mv-icon {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .mv-title {
-            font-size: 1.5rem;
-            color: var(--color-dark);
-            margin-bottom: 1rem;
-        }
-
-        .mv-content {
-            color: var(--color-text);
-            line-height: 1.8;
-        }
-
-        /* PRODUCTOS */
-        .products {
-            background: var(--color-light);
-        }
-
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-
-        .product-card {
+        .section {
             background: white;
             padding: 2rem;
-            border-radius: 10px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .product-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .product-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: var(--color-primary);
-        }
-
-        .product-title {
-            font-size: 1.3rem;
-            color: var(--color-dark);
-            margin-bottom: 1rem;
-        }
-
-        .product-desc {
-            color: var(--color-text);
-            line-height: 1.6;
-        }
-
-        /* PLANTA */
-        .plant {
-            background: white;
-        }
-
-        .plant-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            align-items: center;
-        }
-
-        .plant-info h3 {
-            font-size: 1.8rem;
-            color: var(--color-dark);
-            margin-bottom: 1.5rem;
-        }
-
-        .plant-info p {
-            color: var(--color-text);
-            line-height: 1.8;
-            margin-bottom: 1.5rem;
-        }
-
-        .plant-features {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-
-        .feature {
-            text-align: center;
-            padding: 1rem;
-        }
-
-        .feature-number {
-            font-size: 2rem;
-            font-weight: bold;
-            color: var(--color-primary);
-            display: block;
-        }
-
-        .feature-text {
-            color: var(--color-dark);
-            font-size: 0.9rem;
-        }
-
-        .plant-image img {
-            width: 100%;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-
-        /* EMPLEOS */
-        .jobs {
-            background: var(--color-light);
-        }
-
-        .job-announcement {
-            background: white;
-            padding: 2.5rem;
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             margin-bottom: 2rem;
         }
 
-        .job-title {
-            font-size: 1.5rem;
-            color: var(--color-primary);
+        .section h2 {
+            color: #2c3e50;
             margin-bottom: 1rem;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 0.5rem;
         }
 
-        .job-description {
-            color: var(--color-text);
-            line-height: 1.8;
-            margin-bottom: 1.5rem;
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
         }
 
-        .job-requirements {
-            background: var(--color-light);
+        .stat-card {
+            background: #f8f9fa;
             padding: 1.5rem;
             border-radius: 8px;
-            margin-bottom: 1.5rem;
+            text-align: center;
+            border-left: 4px solid #667eea;
         }
 
-        .job-requirements h4 {
-            color: var(--color-dark);
-            margin-bottom: 1rem;
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #2c3e50;
         }
 
-        .job-requirements ul {
-            list-style-position: inside;
-            color: var(--color-text);
+        .stat-label {
+            color: #666;
+            margin-top: 0.5rem;
         }
 
-        .job-requirements li {
-            margin-bottom: 0.5rem;
+        .documents-list {
+            list-style: none;
         }
 
-        .apply-btn {
-            background: var(--color-primary);
+        .documents-list li {
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .documents-list li:last-child {
+            border-bottom: none;
+        }
+
+        .download-btn {
+            background: #667eea;
             color: white;
-            padding: 12px 30px;
+            padding: 0.5rem 1rem;
             border: none;
             border-radius: 5px;
-            font-size: 1rem;
             cursor: pointer;
-            transition: background 0.3s ease;
+            text-decoration: none;
+            font-size: 0.9rem;
         }
 
-        .apply-btn:hover {
-            background: var(--color-secondary);
-        }
-
-        /* CONTACTO */
-        .contact {
-            background: var(--color-dark);
+        .logout-btn {
+            background: #e74c3c;
             color: white;
-        }
-
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 3rem;
-        }
-
-        .contact-info h3 {
-            color: var(--color-accent);
-            margin-bottom: 1.5rem;
-        }
-
-        .contact-info p {
-            margin-bottom: 1rem;
-            line-height: 1.6;
-        }
-
-        /* FOOTER */
-        footer {
-            background: var(--color-primary);
-            color: white;
-            text-align: center;
-            padding: 2rem;
-        }
-
-        /* RESPONSIVE */
-        @media (max-width: 768px) {
-            .header-container {
-                flex-direction: column;
-                gap: 1rem;
-            }
-
-            .nav-menu {
-                gap: 1rem;
-            }
-
-            .hero h2 {
-                font-size: 2.2rem;
-            }
-
-            .plant-content {
-                grid-template-columns: 1fr;
-            }
-
-            .plant-features {
-                grid-template-columns: 1fr;
-            }
-
-            .section-title {
-                font-size: 2rem;
-            }
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
-    <!-- HEADER -->
-    <header>
-        <div class="header-container">
-            <div class="logo">
-                <h1>🏭 Aldremarkz</h1>
-            </div>
-            <ul class="nav-menu">
-                <li><a href="#inicio">Inicio</a></li>
-                <li><a href="#mision">Misión y Visión</a></li>
-                <li><a href="#productos">Productos</a></li>
-                <li><a href="#planta">Nuestra Planta</a></li>
-                <li><a href="#empleos">Empleos</a></li>
-                <li><a href="#contacto">Contacto</a></li>
-            </ul>
-        </div>
-    </header>
-
-    <!-- HERO SECTION -->
-    <section id="inicio" class="hero">
-        <h2>Aldremarkz</h2>
-        <p>Fabricación de productos de arcilla de la más alta calidad</p>
-    </section>
-
-    <!-- MISIÓN Y VISIÓN -->
-    <section id="mision" class="section mission-vision">
-        <h2 class="section-title">Nuestra Empresa</h2>
-        <div class="mv-grid">
-            <div class="mv-card">
-                <div class="mv-icon">🎯</div>
-                <h3 class="mv-title">Misión</h3>
-                <div class="mv-content">
-                    <p>En Aldremarkz nos dedicamos a la fabricación de productos de arcilla de la más alta calidad, satisfaciendo las necesidades de nuestros clientes con soluciones innovadoras y sostenibles.</p>
-                </div>
-            </div>
-
-            <div class="mv-card">
-                <div class="mv-icon">👁️</div>
-                <h3 class="mv-title">Visión</h3>
-                <div class="mv-content">
-                    <p>Ser la empresa líder en fabricación de productos de arcilla, reconocida por nuestra calidad, innovación y compromiso con el medio ambiente y la comunidad.</p>
-                </div>
-            </div>
-
-            <div class="mv-card">
-                <div class="mv-icon">💎</div>
-                <h3 class="mv-title">Valores</h3>
-                <div class="mv-content">
-                    <p><strong>Calidad:</strong> Excelencia en cada producto<br>
-                    <strong>Innovación:</strong> Mejora continua<br>
-                    <strong>Responsabilidad:</strong> Compromiso ambiental<br>
-                    <strong>Integridad:</strong> Honestidad y transparencia</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- PRODUCTOS -->
-    <section id="productos" class="section products">
-        <h2 class="section-title">Nuestros Productos</h2>
-        <div class="products-grid">
-            <div class="product-card">
-                <div class="product-icon">🧱</div>
-                <h3 class="product-title">Ladrillos</h3>
-                <p class="product-desc">Ladrillos de arcilla de alta resistencia para construcción</p>
-            </div>
-
-            <div class="product-card">
-                <div class="product-icon">🏺</div>
-                <h3 class="product-title">Tejas</h3>
-                <p class="product-desc">Tejas cerámicas para techos residenciales e industriales</p>
-            </div>
-
-            <div class="product-card">
-                <div class="product-icon">🧩</div>
-                <h3 class="product-title">Piezas Especiales</h3>
-                <p class="product-desc">Productos cerámicos personalizados según necesidades</p>
-            </div>
-
-            <div class="product-card">
-                <div class="product-icon">🔧</div>
-                <h3 class="product-title">Materiales para Construcción</h3>
-                <p class="product-desc">Diversos materiales cerámicos para el sector construcción</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- PLANTA -->
-    <section id="planta" class="section plant">
-        <h2 class="section-title">Nuestra Planta</h2>
-        <div class="plant-content">
-            <div class="plant-info">
-                <h3>Instalaciones de Producción</h3>
-                <p>Contamos con una planta moderna equipada con tecnología de punta para la fabricación de productos de arcilla. Nuestras instalaciones nos permiten garantizar la más alta calidad en cada uno de nuestros productos.</p>
-                
-                <p>Ubicada estratégicamente para optimizar la logística y distribución, nuestra planta opera con los más altos estándares de calidad y seguridad.</p>
-
-                <div class="plant-features">
-                    <div class="feature">
-                        <span class="feature-number">5,000+</span>
-                        <span class="feature-text">m² de Instalaciones</span>
-                    </div>
-                    <div class="feature">
-                        <span class="feature-number">50+</span>
-                        <span class="feature-text">Colaboradores</span>
-                    </div>
-                    <div class="feature">
-                        <span class="feature-number">24/7</span>
-                        <span class="feature-text">Capacidad Productiva</span>
-                    </div>
-                    <div class="feature">
-                        <span class="feature-number">100%</span>
-                        <span class="feature-text">Calidad Garantizada</span>
-                    </div>
-                </div>
-            </div>
-            <div class="plant-image">
-                <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Planta de producción">
-            </div>
-        </div>
-    </section>
-
-    <!-- EMPLEOS -->
-    <section id="empleos" class="section jobs">
-        <h2 class="section-title">Únete a Nuestro Equipo</h2>
+    <!-- PANTALLA DE LOGIN -->
+    <div id="loginScreen" class="login-container">
+        <div class="logo">🏭</div>
+        <h1>Aldremarkz</h1>
+        <p class="subtitle">Portal Interno - Acceso Restringido</p>
         
-        <div class="job-announcement">
-            <h3 class="job-title">🏭 Operador de Máquinas</h3>
-            <div class="job-description">
-                <p>Buscamos operadores especializados en maquinaria para producción cerámica. Ofrecemos estabilidad laboral y oportunidades de crecimiento dentro de la empresa.</p>
+        <input type="password" id="passwordInput" class="password-input" placeholder="Ingresa la contraseña" onkeypress="checkEnter(event)">
+        <button onclick="checkPassword()" class="login-btn">Acceder al Portal</button>
+        <div id="errorMessage" class="error-message">Contraseña incorrecta. Intenta nuevamente.</div>
+    </div>
+
+    <!-- PORTAL INTERNO -->
+    <div id="portalScreen" class="portal-container">
+        <header class="portal-header">
+            <div>
+                <h1>🏭 Portal Interno Aldremarkz</h1>
+                <p>Bienvenido al sistema interno de la empresa</p>
             </div>
-            
-            <div class="job-requirements">
-                <h4>Requisitos:</h4>
-                <ul>
-                    <li>Experiencia en operación de maquinaria industrial</li>
-                    <li>Conocimientos en procesos de fabricación cerámica</li>
-                    <li>Disponibilidad para turnos</li>
-                    <li>Compromiso con la calidad y seguridad</li>
+            <button onclick="logout()" class="logout-btn">Cerrar Sesión</button>
+        </header>
+
+        <nav class="portal-nav">
+            <ul class="nav-menu">
+                <li><a href="#dashboard">Dashboard</a></li>
+                <li><a href="#documentos">Documentos</a></li>
+                <li><a href="#produccion">Producción</a></li>
+                <li><a href="#rh">Recursos Humanos</a></li>
+                <li><a href="#comunicados">Comunicados</a></li>
+            </ul>
+        </nav>
+
+        <main class="portal-content">
+            <!-- DASHBOARD -->
+            <section id="dashboard" class="section">
+                <h2>📊 Dashboard General</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">85%</div>
+                        <div class="stat-label">Eficiencia Producción</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">1,250</div>
+                        <div class="stat-label">Unidades Hoy</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">98%</div>
+                        <div class="stat-label">Calidad Aprobada</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">48</div>
+                        <div class="stat-label">Empleados Activos</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- DOCUMENTOS INTERNOS -->
+            <section id="documentos" class="section">
+                <h2>📋 Documentos Internos</h2>
+                <ul class="documents-list">
+                    <li>
+                        <span>Manual de Procedimientos 2024</span>
+                        <a href="#" class="download-btn">Descargar</a>
+                    </li>
+                    <li>
+                        <span>Políticas de Seguridad Industrial</span>
+                        <a href="#" class="download-btn">Descargar</a>
+                    </li>
+                    <li>
+                        <span>Formatos de Reporte de Producción</span>
+                        <a href="#" class="download-btn">Descargar</a>
+                    </li>
+                    <li>
+                        <span>Reglamento Interno de Trabajo</span>
+                        <a href="#" class="download-btn">Descargar</a>
+                    </li>
                 </ul>
-            </div>
-            
-            <button class="apply-btn">Enviar Solicitud</button>
-        </div>
+            </section>
 
-        <div class="job-announcement">
-            <h3 class="job-title">🔧 Técnico de Mantenimiento</h3>
-            <div class="job-description">
-                <p>Vacante para técnico especializado en mantenimiento preventivo y correctivo de maquinaria industrial cerámica.</p>
-            </div>
-            
-            <div class="job-requirements">
-                <h4>Requisitos:</h4>
-                <ul>
-                    <li>Experiencia en mantenimiento industrial</li>
-                    <li>Conocimientos en electricidad y mecánica</li>
-                    <li>Habilidad para resolver problemas técnicos</li>
-                    <li>Disponibilidad inmediata</li>
+            <!-- PRODUCCIÓN -->
+            <section id="produccion" class="section">
+                <h2>🏭 Reportes de Producción</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">12,580</div>
+                        <div class="stat-label">Ladrillos Mes</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">8,420</div>
+                        <div class="stat-label">Tejas Mes</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">95%</div>
+                        <div class="stat-label">Meta Cumplida</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">2.3%</div>
+                        <div class="stat-label">Merma Actual</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- RECURSOS HUMANOS -->
+            <section id="rh" class="section">
+                <h2>👥 Recursos Humanos</h2>
+                <ul class="documents-list">
+                    <li>
+                        <span>Formatos de Vacaciones</span>
+                        <a href="#" class="download-btn">Descargar</a>
+                    </li>
+                    <li>
+                        <span>Solicitud de Permisos</span>
+                        <a href="#" class="download-btn">Descargar</a>
+                    </li>
+                    <li>
+                        <span>Directorio Interno</span>
+                        <a href="#" class="download-btn">Descargar</a>
+                    </li>
+                    <li>
+                        <span>Calendario de Capacitaciones</span>
+                        <a href="#" class="download-btn">Descargar</a>
+                    </li>
                 </ul>
-            </div>
-            
-            <button class="apply-btn">Enviar Solicitud</button>
-        </div>
-    </section>
+            </section>
 
-    <!-- CONTACTO -->
-    <section id="contacto" class="section contact">
-        <h2 class="section-title" style="color: white;">Contacto</h2>
-        <div class="contact-grid">
-            <div class="contact-info">
-                <h3>Información de Contacto</h3>
-                <p>📧 <strong>contacto@aldremarkz.com</strong></p>
-                <p>📞 <strong>+52 664 123 4567</strong></p>
-                <p>📍 <strong>Tijuana, Baja California</strong></p>
-            </div>
-
-            <div class="contact-info">
-                <h3>Recursos Humanos</h3>
-                <p>Para solicitudes de empleo:</p>
-                <p>📧 <strong>rh@aldremarkz.com</strong></p>
-                <p>📞 <strong>+52 664 123 4568</strong></p>
-            </div>
-
-            <div class="contact-info">
-                <h3>Horarios</h3>
-                <p><strong>Oficinas:</strong> Lunes a Viernes 8:00 AM - 5:00 PM</p>
-                <p><strong>Planta:</strong> Lunes a Sábado 6:00 AM - 4:00 PM</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer>
-        <div class="footer-content">
-            <p>&copy; 2024 Aldremarkz - Fabricación de Productos de Arcilla. Todos los derechos reservados.</p>
-            <p style="margin-top: 1rem; opacity: 0.8;">Calidad y tradición en cada producto</p>
-        </div>
-    </footer>
+            <!-- COMUNICADOS -->
+            <section id="comunicados" class="section">
+                <h2>📢 Comunicados Internos</h2>
+                <div style="background: #e8f4fd; padding: 1.5rem; border-radius: 8px; margin-bottom: 1rem;">
+                    <h3 style="color: #2980b9; margin-bottom: 0.5rem;">🔄 Cambio de Turnos - Diciembre</h3>
+                    <p>Se informa sobre los ajustes en los turnos de producción para el mes de diciembre. Favor de revisar el calendario actualizado.</p>
+                    <small style="color: #666;">Publicado: 25 Nov 2024</small>
+                </div>
+                
+                <div style="background: #fff3cd; padding: 1.5rem; border-radius: 8px; margin-bottom: 1rem;">
+                    <h3 style="color: #856404; margin-bottom: 0.5rem;">⚠️ Mantenimiento Programado</h3>
+                    <p>El próximo sábado se realizará mantenimiento preventivo en la línea 2 de producción. Favor de planear actividades.</p>
+                    <small style="color: #666;">Publicado: 20 Nov 2024</small>
+                </div>
+            </section>
+        </main>
+    </div>
 
     <script>
-        // Smooth scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
+        // CONTRASEÑA - Cámbiala por la que quieras
+        const CORRECT_PASSWORD = "Aldremarkz2024";
+        
+        function checkEnter(event) {
+            if (event.key === "Enter") {
+                checkPassword();
+            }
+        }
+        
+        function checkPassword() {
+            const password = document.getElementById('passwordInput').value;
+            const errorMessage = document.getElementById('errorMessage');
+            
+            if (password === CORRECT_PASSWORD) {
+                document.getElementById('loginScreen').style.display = 'none';
+                document.getElementById('portalScreen').style.display = 'block';
+            } else {
+                errorMessage.style.display = 'block';
+                document.getElementById('passwordInput').value = '';
+                document.getElementById('passwordInput').focus();
+            }
+        }
+        
+        function logout() {
+            document.getElementById('portalScreen').style.display = 'none';
+            document.getElementById('loginScreen').style.display = 'flex';
+            document.getElementById('passwordInput').value = '';
+            document.getElementById('errorMessage').style.display = 'none';
+        }
+
+        // Navegación suave entre secciones
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', function(e) {
                 e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                
+                if (targetSection) {
+                    targetSection.scrollIntoView({
                         behavior: 'smooth',
                         block: 'start'
                     });
                 }
             });
-        });
-
-        // Animaciones al hacer scroll
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        });
-
-        document.querySelectorAll('.mv-card, .product-card, .job-announcement').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(20px)';
-            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(el);
         });
     </script>
 </body>
