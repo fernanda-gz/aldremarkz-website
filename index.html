@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alfarería Aldremarkz - Arte en Cerámica</title>
+    <title>Aldremarkz - Alfarería Industrial Profesional</title>
     <style>
         /* RESET Y ESTILOS GLOBALES */
         * {
@@ -13,35 +13,35 @@
         }
 
         body {
-            font-family: 'Georgia', serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
-            color: #5D4037;
-            background: #FAF0E6;
+            color: #333;
+            background: #f8f9fa;
         }
 
-        /* PALETA DE COLORES ALFARERÍA */
+        /* PALETA CORPORATIVA */
         :root {
-            --color-terracota: #A85C32;
-            --color-arcilla: #BF7D4E;
-            --color-beige: #E8D0B3;
-            --color-marron-oscuro: #5D4037;
-            --color-crema: #F5EBDC;
-            --color-blanco: #FFFFFF;
+            --color-primary: #2C5530;
+            --color-secondary: #6B8E23;
+            --color-accent: #8B4513;
+            --color-light: #F8F9FA;
+            --color-dark: #2F4F4F;
+            --color-text: #333333;
         }
 
-        /* HEADER */
-        header {
-            background: linear-gradient(135deg, var(--color-marron-oscuro) 0%, var(--color-terracota) 100%);
+        /* HEADER PROFESIONAL */
+        .corporate-header {
+            background: var(--color-primary);
             color: white;
             padding: 1rem 0;
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(93, 64, 55, 0.3);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
-        .nav-container {
+        .header-container {
             max-width: 1200px;
             margin: 0 auto;
             display: flex;
@@ -50,8 +50,15 @@
             padding: 0 2rem;
         }
 
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
         .logo h1 {
             font-size: 1.8rem;
+            font-weight: 600;
         }
 
         .nav-menu {
@@ -68,55 +75,28 @@
         }
 
         .nav-menu a:hover {
-            color: var(--color-beige);
+            color: var(--color-secondary);
         }
 
-        /* HERO SECTION */
-        .hero {
-            background: linear-gradient(rgba(93, 64, 55, 0.7), rgba(93, 64, 55, 0.7)), 
-                        url('https://images.unsplash.com/photo-1572012820016-7e439d4bfcbc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
-            background-size: cover;
-            background-position: center;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
+        /* HERO CORPORATIVO */
+        .corporate-hero {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-dark) 100%);
             color: white;
-            margin-top: 60px;
+            padding: 120px 2rem 80px;
+            text-align: center;
         }
 
         .hero-content h2 {
-            font-size: 3.5rem;
+            font-size: 3rem;
             margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            font-weight: 300;
         }
 
         .hero-content p {
-            font-size: 1.4rem;
-            margin-bottom: 2rem;
+            font-size: 1.3rem;
             opacity: 0.9;
-        }
-
-        /* BOTONES */
-        .btn {
-            display: inline-block;
-            padding: 15px 35px;
-            background: var(--color-terracota);
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            font-size: 1.1rem;
-        }
-
-        .btn:hover {
-            background: var(--color-marron-oscuro);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(168, 92, 50, 0.4);
+            max-width: 600px;
+            margin: 0 auto;
         }
 
         /* SECCIONES GENERALES */
@@ -128,204 +108,147 @@
 
         .section-title {
             text-align: center;
-            font-size: 2.8rem;
-            margin-bottom: 3rem;
-            color: var(--color-marron-oscuro);
-        }
-
-        /* SOBRE NOSOTROS */
-        .about {
-            background: var(--color-blanco);
-        }
-
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .about-text h3 {
-            font-size: 2.2rem;
-            margin-bottom: 1.5rem;
-            color: var(--color-marron-oscuro);
-        }
-
-        .about-text p {
-            font-size: 1.1rem;
-            margin-bottom: 1.5rem;
-            color: #666;
-            line-height: 1.8;
-        }
-
-        .about-stats {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .stat {
-            text-align: center;
-        }
-
-        .stat-number {
             font-size: 2.5rem;
-            font-weight: bold;
-            color: var(--color-terracota);
-            display: block;
+            margin-bottom: 3rem;
+            color: var(--color-primary);
+            font-weight: 300;
         }
 
-        .stat-label {
-            color: var(--color-marron-oscuro);
-            font-size: 1rem;
-        }
-
-        .about-image img {
-            width: 100%;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(93, 64, 55, 0.2);
-        }
-
-        /* PRODUCTOS */
-        .products {
-            background: var(--color-crema);
-        }
-
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .product-card {
-            background: white;
-            border-radius: 12px;
-            padding: 2rem;
-            text-align: center;
-            box-shadow: 0 5px 20px rgba(93, 64, 55, 0.1);
-            transition: all 0.3s ease;
-            border-top: 4px solid var(--color-terracota);
-        }
-
-        .product-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 35px rgba(93, 64, 55, 0.2);
-        }
-
-        .product-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-        }
-
-        .product-title {
-            font-size: 1.4rem;
-            margin-bottom: 1rem;
-            color: var(--color-marron-oscuro);
-        }
-
-        .product-description {
-            color: #666;
-            margin-bottom: 1.5rem;
-            line-height: 1.6;
-        }
-
-        .product-price {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--color-terracota);
-            margin-bottom: 1.5rem;
-            display: block;
-        }
-
-        /* TALLERES */
-        .workshops {
-            background: var(--color-blanco);
-        }
-
-        .workshops-grid {
+        /* MISIÓN, VISIÓN, VALORES */
+        .corporate-cards {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 2rem;
+            margin-top: 3rem;
         }
 
-        .workshop-card {
-            background: var(--color-crema);
-            padding: 2.5rem;
-            border-radius: 12px;
-            text-align: left;
-            box-shadow: 0 5px 20px rgba(93, 64, 55, 0.1);
-        }
-
-        .workshop-icon {
-            font-size: 3rem;
+        .corporate-card {
+            background: white;
+            padding: 3rem 2rem;
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
             text-align: center;
-            margin-bottom: 1.5rem;
+            transition: transform 0.3s ease;
+            border-top: 4px solid var(--color-primary);
         }
 
-        .workshop-title {
+        .corporate-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--color-primary);
+        }
+
+        .card-title {
             font-size: 1.5rem;
-            color: var(--color-terracota);
+            margin-bottom: 1rem;
+            color: var(--color-dark);
+        }
+
+        .card-content {
+            color: var(--color-text);
+            line-height: 1.8;
+        }
+
+        /* SECCIÓN DE EMPLEOS */
+        .jobs-section {
+            background: var(--color-light);
+        }
+
+        .job-announcement {
+            background: white;
+            padding: 3rem;
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .job-title {
+            font-size: 1.8rem;
+            color: var(--color-primary);
             margin-bottom: 1rem;
         }
 
-        .workshop-details {
-            margin-bottom: 1.5rem;
+        .job-description {
+            color: var(--color-text);
+            line-height: 1.8;
+            margin-bottom: 2rem;
         }
 
-        .workshop-details p {
+        .job-requirements {
+            background: var(--color-light);
+            padding: 1.5rem;
+            border-radius: 6px;
+            margin-bottom: 2rem;
+        }
+
+        .job-requirements h4 {
+            color: var(--color-dark);
+            margin-bottom: 1rem;
+        }
+
+        .job-requirements ul {
+            list-style-position: inside;
+            color: var(--color-text);
+        }
+
+        .job-requirements li {
             margin-bottom: 0.5rem;
-            color: #666;
         }
 
-        /* TESTIMONIOS */
-        .testimonials {
-            background: var(--color-beige);
+        .apply-btn {
+            background: var(--color-primary);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
         }
 
-        .testimonials-grid {
+        .apply-btn:hover {
+            background: var(--color-secondary);
+        }
+
+        /* UBICACIONES */
+        .locations-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
         }
 
-        .testimonial-card {
+        .location-card {
             background: white;
             padding: 2rem;
-            border-radius: 12px;
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
             text-align: center;
-            box-shadow: 0 5px 20px rgba(93, 64, 55, 0.1);
         }
 
-        .testimonial-stars {
-            font-size: 1.5rem;
+        .location-icon {
+            font-size: 2.5rem;
             margin-bottom: 1rem;
-            color: #FFD700;
+            color: var(--color-primary);
         }
 
-        .testimonial-text {
-            font-style: italic;
-            color: #666;
-            line-height: 1.7;
-            margin-bottom: 1.5rem;
+        .location-name {
+            font-size: 1.3rem;
+            color: var(--color-dark);
+            margin-bottom: 1rem;
         }
 
-        .testimonial-author {
-            font-weight: bold;
-            color: var(--color-marron-oscuro);
-        }
-
-        .testimonial-location {
-            color: var(--color-terracota);
-            font-size: 0.9rem;
+        .location-info {
+            color: var(--color-text);
+            line-height: 1.6;
         }
 
         /* CONTACTO */
-        .contact {
-            background: var(--color-marron-oscuro);
+        .contact-section {
+            background: var(--color-dark);
             color: white;
         }
 
@@ -335,45 +258,27 @@
             gap: 3rem;
         }
 
-        .contact-info h3,
-        .contact-hours h3,
-        .contact-newsletter h3 {
-            color: var(--color-beige);
+        .contact-info h3 {
             margin-bottom: 1.5rem;
-            font-size: 1.4rem;
+            color: var(--color-secondary);
         }
 
-        .contact-info p,
-        .contact-hours p {
+        .contact-info p {
             margin-bottom: 1rem;
             line-height: 1.6;
         }
 
-        .newsletter-form input {
-            width: 100%;
-            padding: 12px;
-            border: none;
-            border-radius: 5px;
-            margin-bottom: 1rem;
-            font-size: 1rem;
-        }
-
         /* FOOTER */
-        footer {
-            background: #2F4F4F;
+        .corporate-footer {
+            background: var(--color-primary);
             color: white;
             text-align: center;
             padding: 2rem;
         }
 
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
         /* RESPONSIVE */
         @media (max-width: 768px) {
-            .nav-container {
+            .header-container {
                 flex-direction: column;
                 gap: 1rem;
             }
@@ -383,214 +288,198 @@
             }
 
             .hero-content h2 {
-                font-size: 2.5rem;
-            }
-
-            .about-content {
-                grid-template-columns: 1fr;
-            }
-
-            .about-stats {
-                grid-template-columns: 1fr;
+                font-size: 2.2rem;
             }
 
             .section-title {
-                font-size: 2.2rem;
+                font-size: 2rem;
+            }
+
+            .corporate-card {
+                padding: 2rem 1rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- HEADER -->
-    <header>
-        <nav class="nav-container">
+    <!-- HEADER CORPORATIVO -->
+    <header class="corporate-header">
+        <div class="header-container">
             <div class="logo">
-                <h1>🏺 Alfarería Aldremarkz</h1>
+                <h1>🏭 Aldremarkz</h1>
             </div>
             <ul class="nav-menu">
                 <li><a href="#inicio">Inicio</a></li>
-                <li><a href="#nosotros">Nosotros</a></li>
-                <li><a href="#productos">Productos</a></li>
-                <li><a href="#talleres">Talleres</a></li>
+                <li><a href="#corporativo">Corporativo</a></li>
+                <li><a href="#empleos">Empleos</a></li>
+                <li><a href="#ubicaciones">Ubicaciones</a></li>
                 <li><a href="#contacto">Contacto</a></li>
             </ul>
-        </nav>
+        </div>
     </header>
 
     <!-- HERO SECTION -->
-    <section id="inicio" class="hero">
+    <section id="inicio" class="corporate-hero">
         <div class="hero-content">
-            <h2>Arte en Cada Pieza</h2>
-            <p>Donde la arcilla se convierte en arte</p>
-            <a href="#productos" class="btn">Descubrir Colección</a>
+            <h2>Alfarería Industrial de Alta Calidad</h2>
+            <p>Líderes en fabricación de productos cerámicos para la industria y construcción</p>
         </div>
     </section>
 
-    <!-- SOBRE NOSOTROS -->
-    <section id="nosotros" class="section about">
-        <h2 class="section-title">Nuestra Tradición</h2>
-        <div class="about-content">
-            <div class="about-text">
-                <h3>Más de 15 años de Pasión</h3>
-                <p>En <strong>Alfarería Aldremarkz</strong> llevamos más de 15 años preservando el arte ancestral de la alfarería. Cada pieza es moldeada a mano con técnicas tradicionales que han pasado de generación en generación.</p>
-                <p>Nuestro compromiso es fusionar la tradición con el diseño contemporáneo, creando piezas funcionales y artísticas que cuentan una historia única en cada hogar.</p>
-                
-                <div class="about-stats">
-                    <div class="stat">
-                        <span class="stat-number">15+</span>
-                        <span class="stat-label">Años de Experiencia</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-number">500+</span>
-                        <span class="stat-label">Piezas Únicas</span>
-                    </div>
-                </div>
-            </div>
-            <div class="about-image">
-                <img src="https://images.unsplash.com/photo-1572012820016-7e439d4bfcbc?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Proceso de alfarería">
-            </div>
-        </div>
-    </section>
-
-    <!-- PRODUCTOS -->
-    <section id="productos" class="section products">
-        <h2 class="section-title">Piezas Destacadas</h2>
-        <div class="products-grid">
-            <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1582001739979-0923871fffe1?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Jarrón tradicional" class="product-image">
-                <h3 class="product-title">Jarrón Tradicional</h3>
-                <p class="product-description">Pieza única con acabado natural y textura artesanal, perfecta para decoración interior.</p>
-                <span class="product-price">$450 MXN</span>
-                <a href="#contacto" class="btn">Consultar Disponibilidad</a>
-            </div>
-
-            <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1549283543-3649b347c3fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Set de tazas" class="product-image">
-                <h3 class="product-title">Set de Tazas Artesanales</h3>
-                <p class="product-description">Set de 4 tazas con diseño único y ergonómico para tu día a día.</p>
-                <span class="product-price">$680 MXN</span>
-                <a href="#contacto" class="btn">Consultar Disponibilidad</a>
-            </div>
-
-            <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1570918604301-15e1d9242c85?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Plato decorativo" class="product-image">
-                <h3 class="product-title">Plato Decorativo</h3>
-                <p class="product-description">Ideal para centros de mesa, con diseño exclusivo y acabado premium.</p>
-                <span class="product-price">$380 MXN</span>
-                <a href="#contacto" class="btn">Consultar Disponibilidad</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- TALLERES -->
-    <section id="talleres" class="section workshops">
-        <h2 class="section-title">Aprende el Arte de la Alfarería</h2>
-        <div class="workshops-grid">
-            <div class="workshop-card">
-                <div class="workshop-icon">🏺</div>
-                <h3 class="workshop-title">Taller Básico de Alfarería</h3>
-                <div class="workshop-details">
-                    <p><strong>📅 Duración:</strong> 4 sesiones (2 semanas)</p>
-                    <p><strong>⏰ Horario:</strong> Sábados 9am - 12pm</p>
-                    <p><strong>🎯 Incluye:</strong> Materiales, horneado y 2 piezas terminadas</p>
-                </div>
-                <p>Aprende las técnicas fundamentales del torno y moldeado manual. Ideal para principiantes.</p>
-                <div style="text-align: center; margin-top: 2rem;">
-                    <span style="color: var(--color-marron-oscuro); font-weight: bold; font-size: 1.4rem; display: block; margin-bottom: 1rem;">$1,200 MXN</span>
-                    <a href="#contacto" class="btn">Inscribirse Ahora</a>
+    <!-- CORPORATIVO - MISIÓN, VISIÓN, VALORES -->
+    <section id="corporativo" class="section">
+        <h2 class="section-title">Nuestra Empresa</h2>
+        <div class="corporate-cards">
+            <div class="corporate-card">
+                <div class="card-icon">🎯</div>
+                <h3 class="card-title">Misión</h3>
+                <div class="card-content">
+                    <p>Ser el proveedor líder en soluciones de alfarería industrial, ofreciendo productos de la más alta calidad que superen las expectativas de nuestros clientes en los sectores de construcción e industria.</p>
                 </div>
             </div>
 
-            <div class="workshop-card">
-                <div class="workshop-icon">🎨</div>
-                <h3 class="workshop-title">Taller Avanzado con Esmaltes</h3>
-                <div class="workshop-details">
-                    <p><strong>📅 Duración:</strong> 6 sesiones (3 semanas)</p>
-                    <p><strong>⏰ Horario:</strong> Martes y Jueves 6pm - 8pm</p>
-                    <p><strong>🎯 Incluye:</strong> Materiales premium y esmaltes especiales</p>
+            <div class="corporate-card">
+                <div class="card-icon">👁️</div>
+                <h3 class="card-title">Visión</h3>
+                <div class="card-content">
+                    <p>Consolidarnos como la empresa de referencia en alfarería industrial a nivel nacional, reconocida por nuestra innovación, calidad y compromiso con el desarrollo sostenible.</p>
                 </div>
-                <p>Técnicas avanzadas de esmaltado, decoración y acabados profesionales. Para quienes ya tienen experiencia básica.</p>
-                <div style="text-align: center; margin-top: 2rem;">
-                    <span style="color: var(--color-marron-oscuro); font-weight: bold; font-size: 1.4rem; display: block; margin-bottom: 1rem;">$1,800 MXN</span>
-                    <a href="#contacto" class="btn">Inscribirse Ahora</a>
+            </div>
+
+            <div class="corporate-card">
+                <div class="card-icon">💎</div>
+                <h3 class="card-title">Valores</h3>
+                <div class="card-content">
+                    <p><strong>Calidad:</strong> Excelencia en cada producto<br>
+                    <strong>Innovación:</strong> Mejora continua<br>
+                    <strong>Integridad:</strong> Transparencia y honestidad<br>
+                    <strong>Sostenibilidad:</strong> Compromiso ambiental</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- TESTIMONIOS -->
-    <section class="section testimonials">
-        <h2 class="section-title">Lo que Dicen Nuestros Clientes</h2>
-        <div class="testimonials-grid">
-            <div class="testimonial-card">
-                <div class="testimonial-stars">⭐️⭐️⭐️⭐️⭐️</div>
-                <p class="testimonial-text">"Las piezas de Aldremarkz son simplemente excepcionales. Compré un jarrón que se ha convertido en el centro de atención de mi sala. La calidad y atención al detalle son incomparables."</p>
-                <div>
-                    <div class="testimonial-author">María González</div>
-                    <div class="testimonial-location">Tijuana, BC</div>
+    <!-- SECCIÓN DE EMPLEOS -->
+    <section id="empleos" class="section jobs-section">
+        <h2 class="section-title">Únete a Nuestro Equipo</h2>
+        
+        <div class="job-announcement">
+            <h3 class="job-title">🔧 Técnico en Alfarería Industrial</h3>
+            <div class="job-description">
+                <p>Buscamos técnicos especializados en procesos de fabricación cerámica para unirse a nuestro equipo de producción. Ofrecemos ambiente de trabajo estable y oportunidades de crecimiento.</p>
+            </div>
+            
+            <div class="job-requirements">
+                <h4>Requisitos:</h4>
+                <ul>
+                    <li>Experiencia en procesos de alfarería industrial</li>
+                    <li>Conocimiento en manejo de hornos y esmaltes</li>
+                    <li>Disponibilidad para turnos rotativos</li>
+                    <li>Compromiso con estándares de calidad</li>
+                </ul>
+            </div>
+            
+            <button class="apply-btn">Postularme a este puesto</button>
+        </div>
+
+        <div class="job-announcement">
+            <h3 class="job-title">📦 Operador de Maquinaria</h3>
+            <div class="job-description">
+                <p>Vacante para operador especializado en maquinaria de producción cerámica. Capacitación incluida para candidatos con experiencia en maquinaria industrial.</p>
+            </div>
+            
+            <div class="job-requirements">
+                <h4>Requisitos:</h4>
+                <ul>
+                    <li>Experiencia en operación de maquinaria industrial</li>
+                    <li>Conocimientos básicos de mantenimiento</li>
+                    <li>Responsabilidad y atención al detalle</li>
+                    <li>Disponibilidad inmediata</li>
+                </ul>
+            </div>
+            
+            <button class="apply-btn">Postularme a este puesto</button>
+        </div>
+    </section>
+
+    <!-- UBICACIONES -->
+    <section id="ubicaciones" class="section">
+        <h2 class="section-title">Nuestras Instalaciones</h2>
+        <div class="locations-grid">
+            <div class="location-card">
+                <div class="location-icon">🏭</div>
+                <h4 class="location-name">Planta Principal</h4>
+                <div class="location-info">
+                    <p><strong>Dirección:</strong><br>
+                    Carretera Libre Tijuana-Tecate KM 12.5<br>
+                    Tijuana, Baja California</p>
+                    <p><strong>Horario:</strong><br>
+                    Lunes a Viernes: 6:00 AM - 4:00 PM</p>
                 </div>
             </div>
 
-            <div class="testimonial-card">
-                <div class="testimonial-stars">⭐️⭐️⭐️⭐️⭐️</div>
-                <p class="testimonial-text">"El taller básico fue una experiencia increíble. Los instructores son muy pacientes y expertos. Terminé con dos piezas que atesoro y las habilidades para seguir explorando este arte."</p>
-                <div>
-                    <div class="testimonial-author">Carlos Rodríguez</div>
-                    <div class="testimonial-location">Estudiante de Taller</div>
+            <div class="location-card">
+                <div class="location-icon">🏢</div>
+                <h4 class="location-name">Oficinas Corporativas</h4>
+                <div class="location-info">
+                    <p><strong>Dirección:</strong><br>
+                    Blvd. Agua Caliente 1234<br>
+                    Tijuana, Baja California</p>
+                    <p><strong>Horario:</strong><br>
+                    Lunes a Viernes: 8:00 AM - 6:00 PM</p>
                 </div>
             </div>
 
-            <div class="testimonial-card">
-                <div class="testimonial-stars">⭐️⭐️⭐️⭐️⭐️</div>
-                <p class="testimonial-text">"Pedí un set de platos personalizados para mi restaurante y superaron todas mis expectativas. Cada cliente pregunta por la vajilla. ¡Totalmente recomendados!"</p>
-                <div>
-                    <div class="testimonial-author">Ana Martínez</div>
-                    <div class="testimonial-location">Dueña de Restaurante</div>
+            <div class="location-card">
+                <div class="location-icon">📦</div>
+                <h4 class="location-name">Centro de Distribución</h4>
+                <div class="location-info">
+                    <p><strong>Dirección:</strong><br>
+                    Zona Industrial El Florido<br>
+                    Tijuana, Baja California</p>
+                    <p><strong>Horario:</strong><br>
+                    Lunes a Sábado: 7:00 AM - 3:00 PM</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- CONTACTO -->
-    <section id="contacto" class="section contact">
-        <h2 class="section-title" style="color: white;">Contáctanos</h2>
+    <section id="contacto" class="section contact-section">
+        <h2 class="section-title" style="color: white;">Contacto</h2>
         <div class="contact-grid">
             <div class="contact-info">
-                <h3>Alfarería Aldremarkz</h3>
-                <p>🏺 Arte, tradición y calidad en cada creación</p>
-                <p>📧 info@aldremarkz.com</p>
-                <p>📞 +52 664 123 4567</p>
-                <p>📍 Tijuana, Baja California</p>
+                <h3>Información de Contacto</h3>
+                <p>📧 <strong>recursoshumanos@aldremarkz.com</strong></p>
+                <p>📞 <strong>+52 664 234 5678</strong></p>
+                <p>📍 <strong>Tijuana, Baja California</strong></p>
             </div>
 
-            <div class="contact-hours">
-                <h3>Horario de Atención</h3>
-                <p>🕘 Lunes a Viernes: 9:00 AM - 6:00 PM</p>
-                <p>🕙 Sábados: 10:00 AM - 4:00 PM</p>
-                <p>🚫 Domingos: Cerrado</p>
+            <div class="contact-info">
+                <h3>Departamento de RH</h3>
+                <p>Para solicitudes de empleo y proceso de reclutamiento</p>
+                <p><strong>Horario de atención:</strong><br>
+                Lunes a Viernes: 8:00 AM - 5:00 PM</p>
             </div>
 
-            <div class="contact-newsletter">
-                <h3>Newsletter</h3>
-                <p>Recibe noticias sobre nuevos productos, talleres y promociones especiales.</p>
-                <form class="newsletter-form">
-                    <input type="email" placeholder="Tu correo electrónico" required>
-                    <button type="submit" class="btn" style="width: 100%;">Suscribirse</button>
-                </form>
+            <div class="contact-info">
+                <h3>Síguenos</h3>
+                <p>Mantente informado sobre nuevas vacantes y proyectos</p>
+                <p>📱 LinkedIn: Aldremarkz Industrial</p>
             </div>
         </div>
     </section>
 
     <!-- FOOTER -->
-    <footer>
+    <footer class="corporate-footer">
         <div class="footer-content">
-            <p>&copy; 2024 Alfarería Aldremarkz. Todos los derechos reservados.</p>
-            <p style="margin-top: 1rem; opacity: 0.8;">Hecho con ❤️ y mucha arcilla</p>
+            <p>&copy; 2024 Aldremarkz - Alfarería Industrial. Todos los derechos reservados.</p>
+            <p style="margin-top: 1rem; opacity: 0.8;">Comprometidos con la calidad y la innovación</p>
         </div>
     </footer>
 
     <script>
-        // Smooth scrolling para los enlaces del menú
+        // Smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -604,12 +493,7 @@
             });
         });
 
-        // Efecto de aparición al hacer scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
+        // Animación para las cards
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -617,10 +501,9 @@
                     entry.target.style.transform = 'translateY(0)';
                 }
             });
-        }, observerOptions);
+        });
 
-        // Observar elementos para animación
-        document.querySelectorAll('.product-card, .workshop-card, .testimonial-card').forEach(el => {
+        document.querySelectorAll('.corporate-card, .job-announcement, .location-card').forEach(el => {
             el.style.opacity = '0';
             el.style.transform = 'translateY(20px)';
             el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
