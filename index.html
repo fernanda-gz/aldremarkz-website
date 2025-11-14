@@ -418,6 +418,151 @@
             background: #f8d7da;
             border-left: 4px solid #e74c3c;
         }
+
+        /* Nuevos estilos para submenús */
+        .sub-nav {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 1rem;
+        }
+
+        .sub-nav-btn {
+            padding: 0.5rem 1rem;
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .sub-nav-btn.active {
+            background: #3498db;
+            color: white;
+            border-color: #3498db;
+        }
+
+        .sub-section {
+            display: none;
+        }
+
+        .sub-section.active {
+            display: block;
+        }
+
+        /* Estilos para empleados */
+        .employee-card {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border-left: 4px solid #3498db;
+        }
+
+        .employee-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .employee-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .employee-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .employee-detail {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .detail-label {
+            font-weight: bold;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .detail-value {
+            color: #2c3e50;
+        }
+
+        .employee-files {
+            margin-top: 1rem;
+        }
+
+        .files-list {
+            list-style: none;
+            margin-top: 0.5rem;
+        }
+
+        .files-list li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem;
+            background: white;
+            border-radius: 5px;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Modal para reemplazo de documentos */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 1rem;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            color: #2c3e50;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .close-modal:hover {
+            color: #e74c3c;
+        }
     </style>
 </head>
 <body>
@@ -454,6 +599,7 @@
                 <li><a href="#seguridad" class="nav-link" data-section="seguridad">🛡️ Seguridad Industrial</a></li>
                 <li><a href="#produccion" class="nav-link" data-section="produccion">🏭 Producción</a></li>
                 <li><a href="#rh" class="nav-link" data-section="rh">👥 Recursos Humanos</a></li>
+                <li><a href="#contabilidad" class="nav-link" data-section="contabilidad">💰 Contabilidad</a></li>
                 <li><a href="#comunicados" class="nav-link" data-section="comunicados">📢 Comunicados</a></li>
                 <li><a href="#avisos" class="nav-link" data-section="avisos">⚠️ Avisos de Vencimiento</a></li>
             </ul>
@@ -477,8 +623,8 @@
                         <div class="stat-label">Comunicados</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-number">48</div>
-                        <div class="stat-label">Empleados</div>
+                        <div class="stat-number" id="empleadosActivos">0</div>
+                        <div class="stat-label">Empleados Activos</div>
                     </div>
                 </div>
             </section>
@@ -624,65 +770,187 @@
             <section id="rh" class="section">
                 <h2>👥 Recursos Humanos</h2>
                 
-                <div class="admin-buttons">
-                    <button class="btn btn-primary" onclick="mostrarFormulario('rh')">➕ Agregar Documento</button>
+                <div class="sub-nav">
+                    <button class="sub-nav-btn active" data-subsection="documentos">📄 Documentos</button>
+                    <button class="sub-nav-btn" data-subsection="empleados">👥 Empleados</button>
                 </div>
 
-                <div id="formRH" class="form-container">
+                <!-- SUBSECCIÓN DOCUMENTOS -->
+                <div id="documentosRH" class="sub-section active">
+                    <div class="admin-buttons">
+                        <button class="btn btn-primary" onclick="mostrarFormulario('rh')">➕ Agregar Documento</button>
+                    </div>
+
+                    <div id="formRH" class="form-container">
+                        <h3>Agregar Nuevo Documento</h3>
+                        <form id="formNuevoRH" onsubmit="agregarDocumento('rh'); return false;">
+                            <div class="form-group">
+                                <label for="tituloRH">Título del Documento:</label>
+                                <input type="text" id="tituloRH" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="codigoRH">Código/Número:</label>
+                                <input type="text" id="codigoRH" class="form-control" placeholder="Ej: RH-001" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Vigencia:</label>
+                                <div class="vigencia-options">
+                                    <div class="vigencia-option selected" data-tipo="dias" onclick="seleccionarVigencia(this, 'rh')">
+                                        📅 Días
+                                    </div>
+                                    <div class="vigencia-option" data-tipo="meses" onclick="seleccionarVigencia(this, 'rh')">
+                                        📆 Meses
+                                    </div>
+                                    <div class="vigencia-option" data-tipo="fecha" onclick="seleccionarVigencia(this, 'rh')">
+                                        🗓️ Fecha Específica
+                                    </div>
+                                </div>
+                                
+                                <div id="vigenciaDiasRH">
+                                    <input type="number" id="diasRH" class="form-control" min="1" max="365" value="30" placeholder="Número de días">
+                                </div>
+                                
+                                <div id="vigenciaMesesRH" style="display: none;">
+                                    <input type="number" id="mesesRH" class="form-control" min="1" max="60" value="12" placeholder="Número de meses">
+                                </div>
+                                
+                                <div id="vigenciaFechaRH" style="display: none;">
+                                    <input type="date" id="fechaRH" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="archivoRH">Subir Archivo:</label>
+                                <input type="file" id="archivoRH" class="form-control" accept=".pdf,.doc,.docx,.xlsx" required onchange="mostrarPreview(this, 'previewRH')">
+                                <div id="previewRH" class="file-preview"></div>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-success">💾 Guardar Documento</button>
+                                <button type="button" class="btn btn-danger" onclick="ocultarFormulario('rh')">❌ Cancelar</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div id="listaRH">
+                        <div class="empty-state">
+                            <div>👥</div>
+                            <p>No hay documentos de recursos humanos cargados</p>
+                            <p>Haz clic en "Agregar Documento" para comenzar</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUBSECCIÓN EMPLEADOS -->
+                <div id="empleadosRH" class="sub-section">
+                    <div class="admin-buttons">
+                        <button class="btn btn-primary" onclick="mostrarFormularioEmpleado()">➕ Agregar Empleado</button>
+                    </div>
+
+                    <div id="formEmpleado" class="form-container">
+                        <h3>Agregar Nuevo Empleado</h3>
+                        <form id="formNuevoEmpleado" onsubmit="agregarEmpleado(); return false;">
+                            <div class="form-group">
+                                <label for="nombreEmpleado">Nombre Completo:</label>
+                                <input type="text" id="nombreEmpleado" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="puestoEmpleado">Puesto:</label>
+                                <input type="text" id="puestoEmpleado" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="departamentoEmpleado">Departamento:</label>
+                                <input type="text" id="departamentoEmpleado" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="fechaContratacion">Fecha de Contratación:</label>
+                                <input type="date" id="fechaContratacion" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="archivosEmpleado">Documentos del Empleado:</label>
+                                <input type="file" id="archivosEmpleado" class="form-control" multiple accept=".pdf,.doc,.docx,.xlsx,.jpg,.png" onchange="mostrarPreviewEmpleado(this, 'previewEmpleado')">
+                                <div id="previewEmpleado" class="file-preview"></div>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-success">💾 Guardar Empleado</button>
+                                <button type="button" class="btn btn-danger" onclick="ocultarFormularioEmpleado()">❌ Cancelar</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div id="listaEmpleados">
+                        <div class="empty-state">
+                            <div>👥</div>
+                            <p>No hay empleados registrados</p>
+                            <p>Haz clic en "Agregar Empleado" para comenzar</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CONTABILIDAD -->
+            <section id="contabilidad" class="section">
+                <h2>💰 Contabilidad</h2>
+                
+                <div class="admin-buttons">
+                    <button class="btn btn-primary" onclick="mostrarFormulario('contabilidad')">➕ Agregar Documento</button>
+                </div>
+
+                <div id="formContabilidad" class="form-container">
                     <h3>Agregar Nuevo Documento</h3>
-                    <form id="formNuevoRH" onsubmit="agregarDocumento('rh'); return false;">
+                    <form id="formNuevoContabilidad" onsubmit="agregarDocumento('contabilidad'); return false;">
                         <div class="form-group">
-                            <label for="tituloRH">Título del Documento:</label>
-                            <input type="text" id="tituloRH" class="form-control" required>
+                            <label for="tituloContabilidad">Título del Documento:</label>
+                            <input type="text" id="tituloContabilidad" class="form-control" required>
                         </div>
                         <div class="form-group">
-                            <label for="codigoRH">Código/Número:</label>
-                            <input type="text" id="codigoRH" class="form-control" placeholder="Ej: RH-001" required>
+                            <label for="codigoContabilidad">Código/Número:</label>
+                            <input type="text" id="codigoContabilidad" class="form-control" placeholder="Ej: CON-001" required>
                         </div>
                         
                         <div class="form-group">
                             <label>Vigencia:</label>
                             <div class="vigencia-options">
-                                <div class="vigencia-option selected" data-tipo="dias" onclick="seleccionarVigencia(this, 'rh')">
+                                <div class="vigencia-option selected" data-tipo="dias" onclick="seleccionarVigencia(this, 'contabilidad')">
                                     📅 Días
                                 </div>
-                                <div class="vigencia-option" data-tipo="meses" onclick="seleccionarVigencia(this, 'rh')">
+                                <div class="vigencia-option" data-tipo="meses" onclick="seleccionarVigencia(this, 'contabilidad')">
                                     📆 Meses
                                 </div>
-                                <div class="vigencia-option" data-tipo="fecha" onclick="seleccionarVigencia(this, 'rh')">
+                                <div class="vigencia-option" data-tipo="fecha" onclick="seleccionarVigencia(this, 'contabilidad')">
                                     🗓️ Fecha Específica
                                 </div>
                             </div>
                             
-                            <div id="vigenciaDiasRH">
-                                <input type="number" id="diasRH" class="form-control" min="1" max="365" value="30" placeholder="Número de días">
+                            <div id="vigenciaDiasContabilidad">
+                                <input type="number" id="diasContabilidad" class="form-control" min="1" max="365" value="30" placeholder="Número de días">
                             </div>
                             
-                            <div id="vigenciaMesesRH" style="display: none;">
-                                <input type="number" id="mesesRH" class="form-control" min="1" max="60" value="12" placeholder="Número de meses">
+                            <div id="vigenciaMesesContabilidad" style="display: none;">
+                                <input type="number" id="mesesContabilidad" class="form-control" min="1" max="60" value="12" placeholder="Número de meses">
                             </div>
                             
-                            <div id="vigenciaFechaRH" style="display: none;">
-                                <input type="date" id="fechaRH" class="form-control">
+                            <div id="vigenciaFechaContabilidad" style="display: none;">
+                                <input type="date" id="fechaContabilidad" class="form-control">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="archivoRH">Subir Archivo:</label>
-                            <input type="file" id="archivoRH" class="form-control" accept=".pdf,.doc,.docx,.xlsx" required onchange="mostrarPreview(this, 'previewRH')">
-                            <div id="previewRH" class="file-preview"></div>
+                            <label for="archivoContabilidad">Subir Archivo:</label>
+                            <input type="file" id="archivoContabilidad" class="form-control" accept=".pdf,.doc,.docx,.xlsx" required onchange="mostrarPreview(this, 'previewContabilidad')">
+                            <div id="previewContabilidad" class="file-preview"></div>
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-success">💾 Guardar Documento</button>
-                            <button type="button" class="btn btn-danger" onclick="ocultarFormulario('rh')">❌ Cancelar</button>
+                            <button type="button" class="btn btn-danger" onclick="ocultarFormulario('contabilidad')">❌ Cancelar</button>
                         </div>
                     </form>
                 </div>
 
-                <div id="listaRH">
+                <div id="listaContabilidad">
                     <div class="empty-state">
-                        <div>👥</div>
-                        <p>No hay documentos de recursos humanos cargados</p>
+                        <div>💰</div>
+                        <p>No hay documentos de contabilidad cargados</p>
                         <p>Haz clic en "Agregar Documento" para comenzar</p>
                     </div>
                 </div>
@@ -745,6 +1013,63 @@
         </main>
     </div>
 
+    <!-- MODAL PARA REEMPLAZO DE DOCUMENTOS -->
+    <div id="modalReemplazo" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">🔄 Reemplazar Documento</h3>
+                <button class="close-modal" onclick="cerrarModalReemplazo()">&times;</button>
+            </div>
+            <form id="formReemplazo" onsubmit="procesarReemplazo(); return false;">
+                <div class="form-group">
+                    <label for="tituloReemplazo">Título del Documento:</label>
+                    <input type="text" id="tituloReemplazo" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="codigoReemplazo">Código/Número:</label>
+                    <input type="text" id="codigoReemplazo" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Vigencia:</label>
+                    <div class="vigencia-options">
+                        <div class="vigencia-option selected" data-tipo="dias" onclick="seleccionarVigenciaModal(this)">
+                            📅 Días
+                        </div>
+                        <div class="vigencia-option" data-tipo="meses" onclick="seleccionarVigenciaModal(this)">
+                            📆 Meses
+                        </div>
+                        <div class="vigencia-option" data-tipo="fecha" onclick="seleccionarVigenciaModal(this)">
+                            🗓️ Fecha Específica
+                        </div>
+                    </div>
+                    
+                    <div id="vigenciaDiasModal">
+                        <input type="number" id="diasModal" class="form-control" min="1" max="365" value="30" placeholder="Número de días">
+                    </div>
+                    
+                    <div id="vigenciaMesesModal" style="display: none;">
+                        <input type="number" id="mesesModal" class="form-control" min="1" max="60" value="12" placeholder="Número de meses">
+                    </div>
+                    
+                    <div id="vigenciaFechaModal" style="display: none;">
+                        <input type="date" id="fechaModal" class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="archivoReemplazo">Subir Archivo:</label>
+                    <input type="file" id="archivoReemplazo" class="form-control" accept=".pdf,.doc,.docx,.xlsx" required onchange="mostrarPreview(this, 'previewReemplazo')">
+                    <div id="previewReemplazo" class="file-preview"></div>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success">💾 Guardar Cambios</button>
+                    <button type="button" class="btn btn-danger" onclick="cerrarModalReemplazo()">❌ Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <script>
         // CONTRASEÑA - Cámbiala por la que quieras
         const CORRECT_PASSWORD = "Aldremarkz2024";
@@ -753,15 +1078,41 @@
         let documentos = JSON.parse(localStorage.getItem('aldremarkz_documentos')) || {
             seguridad: [],
             produccion: [],
-            rh: []
+            rh: [],
+            contabilidad: []
         };
         
         let comunicados = JSON.parse(localStorage.getItem('aldremarkz_comunicados')) || [];
+        let empleados = JSON.parse(localStorage.getItem('aldremarkz_empleados')) || [];
+        
+        // Variables para el modal de reemplazo
+        let documentoReemplazo = null;
+        let seccionReemplazo = null;
 
         // Inicializar el sistema al cargar
         document.addEventListener('DOMContentLoaded', function() {
             actualizarDashboard();
             verificarVencimientos();
+            
+            // Configurar navegación de subsecciones
+            document.querySelectorAll('.sub-nav-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const subSection = this.getAttribute('data-subsection');
+                    const parentSection = this.closest('.section').id;
+                    
+                    // Actualizar botones activos
+                    document.querySelectorAll(`#${parentSection} .sub-nav-btn`).forEach(b => {
+                        b.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                    
+                    // Mostrar subsección activa
+                    document.querySelectorAll(`#${parentSection} .sub-section`).forEach(s => {
+                        s.classList.remove('active');
+                    });
+                    document.getElementById(`${subSection}${parentSection.charAt(0).toUpperCase() + parentSection.slice(1)}`).classList.add('active');
+                });
+            });
         });
 
         function checkEnter(event) {
@@ -829,6 +1180,15 @@
             document.getElementById('formNuevoComunicado').reset();
         }
 
+        function mostrarFormularioEmpleado() {
+            document.getElementById('formEmpleado').style.display = 'block';
+        }
+
+        function ocultarFormularioEmpleado() {
+            document.getElementById('formEmpleado').style.display = 'none';
+            document.getElementById('formNuevoEmpleado').reset();
+        }
+
         function seleccionarVigencia(elemento, seccion) {
             // Remover selección de todos los botones
             elemento.parentElement.querySelectorAll('.vigencia-option').forEach(opt => {
@@ -862,11 +1222,59 @@
             }
         }
 
+        function seleccionarVigenciaModal(elemento) {
+            // Remover selección de todos los botones
+            elemento.parentElement.querySelectorAll('.vigencia-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            // Agregar selección al clickeado
+            elemento.classList.add('selected');
+            
+            const tipo = elemento.getAttribute('data-tipo');
+            
+            // Ocultar todos los campos
+            document.getElementById('vigenciaDiasModal').style.display = 'none';
+            document.getElementById('vigenciaMesesModal').style.display = 'none';
+            document.getElementById('vigenciaFechaModal').style.display = 'none';
+            
+            // Mostrar el campo correspondiente
+            if (tipo === 'dias') {
+                document.getElementById('vigenciaDiasModal').style.display = 'block';
+            } else if (tipo === 'meses') {
+                document.getElementById('vigenciaMesesModal').style.display = 'block';
+            } else if (tipo === 'fecha') {
+                document.getElementById('vigenciaFechaModal').style.display = 'block';
+                // Establecer fecha mínima como hoy
+                const fechaInput = document.getElementById('fechaModal');
+                const hoy = new Date().toISOString().split('T')[0];
+                fechaInput.min = hoy;
+                if (!fechaInput.value) {
+                    fechaInput.value = hoy;
+                }
+            }
+        }
+
         function mostrarPreview(input, previewId) {
             const preview = document.getElementById(previewId);
             if (input.files && input.files[0]) {
                 const file = input.files[0];
                 preview.innerHTML = `📎 Archivo seleccionado: <strong>${file.name}</strong> (${(file.size / 1024).toFixed(2)} KB)`;
+            } else {
+                preview.innerHTML = '';
+            }
+        }
+
+        function mostrarPreviewEmpleado(input, previewId) {
+            const preview = document.getElementById(previewId);
+            if (input.files && input.files.length > 0) {
+                let html = `<strong>Archivos seleccionados:</strong><ul>`;
+                for (let i = 0; i < input.files.length; i++) {
+                    const file = input.files[i];
+                    html += `<li>📎 ${file.name} (${(file.size / 1024).toFixed(2)} KB)</li>`;
+                }
+                html += `</ul>`;
+                preview.innerHTML = html;
             } else {
                 preview.innerHTML = '';
             }
@@ -882,6 +1290,11 @@
                 reader.onerror = reject;
                 reader.readAsDataURL(archivo);
             });
+        }
+
+        // Función para leer múltiples archivos como Base64
+        function leerArchivosComoBase64(archivos) {
+            return Promise.all(Array.from(archivos).map(archivo => leerArchivoComoBase64(archivo)));
         }
 
         // CORRECCIÓN: Función async agregada correctamente
@@ -934,6 +1347,47 @@
             alert('✅ Documento agregado correctamente');
         }
 
+        async function agregarEmpleado() {
+            const nombre = document.getElementById('nombreEmpleado').value;
+            const puesto = document.getElementById('puestoEmpleado').value;
+            const departamento = document.getElementById('departamentoEmpleado').value;
+            const fechaContratacion = document.getElementById('fechaContratacion').value;
+            const archivos = document.getElementById('archivosEmpleado').files;
+
+            if (archivos.length === 0) {
+                alert('Por favor selecciona al menos un archivo para el empleado');
+                return;
+            }
+
+            // Leer archivos como Base64
+            const archivosData = await leerArchivosComoBase64(archivos);
+
+            const archivosEmpleado = Array.from(archivos).map((archivo, index) => ({
+                nombre: archivo.name,
+                tipo: archivo.type,
+                tamaño: archivo.size,
+                data: archivosData[index]
+            }));
+
+            const nuevoEmpleado = {
+                id: Date.now(),
+                nombre: nombre,
+                puesto: puesto,
+                departamento: departamento,
+                fechaContratacion: fechaContratacion,
+                archivos: archivosEmpleado,
+                activo: true
+            };
+
+            empleados.push(nuevoEmpleado);
+            guardarDatos();
+            cargarEmpleados();
+            ocultarFormularioEmpleado();
+            actualizarDashboard();
+            
+            alert('👥 Empleado agregado correctamente');
+        }
+
         function agregarComunicado() {
             const titulo = document.getElementById('tituloComunicado').value;
             const contenido = document.getElementById('contenidoComunicado').value;
@@ -957,52 +1411,98 @@
             alert('📢 Comunicado publicado correctamente');
         }
 
-        // CORRECCIÓN: Función async para reemplazar documento
-        async function reemplazarDocumento(seccion, id) {
-            const archivoInput = document.createElement('input');
-            archivoInput.type = 'file';
-            archivoInput.accept = '.pdf,.doc,.docx,.xlsx';
-            
-            archivoInput.onchange = async function(e) {
-                const archivo = e.target.files[0];
-                if (archivo) {
-                    const documentoIndex = documentos[seccion].findIndex(doc => doc.id === id);
-                    if (documentoIndex !== -1) {
-                        // CORRECCIÓN: Usar await correctamente
-                        const archivoData = await leerArchivoComoBase64(archivo);
-                        
-                        documentos[seccion][documentoIndex].archivo = archivo.name;
-                        documentos[seccion][documentoIndex].archivoData = archivoData;
-                        documentos[seccion][documentoIndex].fechaCreacion = new Date().toISOString();
-                        
-                        // Mantener la misma fecha de vencimiento o recalcular según el tipo
-                        const tipoVigencia = documentos[seccion][documentoIndex].tipoVigencia;
-                        if (tipoVigencia === 'dias' || tipoVigencia === 'meses') {
-                            // Recalcular fecha de vencimiento desde hoy
-                            const fechaOriginal = new Date(documentos[seccion][documentoIndex].fechaVencimiento);
-                            const fechaCreacion = new Date(documentos[seccion][documentoIndex].fechaCreacion);
-                            const diferencia = fechaOriginal - fechaCreacion;
-                            documentos[seccion][documentoIndex].fechaVencimiento = new Date(Date.now() + diferencia).toISOString();
-                        }
-                        // Si es fecha específica, se mantiene la misma fecha
-                        
-                        guardarDatos();
-                        cargarSeccion(seccion);
-                        actualizarDashboard();
-                        verificarVencimientos();
-                        
-                        alert('✅ Documento reemplazado correctamente');
-                    }
+        // Función para abrir modal de reemplazo
+        function reemplazarDocumento(seccion, id) {
+            const documento = documentos[seccion].find(doc => doc.id === id);
+            if (documento) {
+                documentoReemplazo = documento;
+                seccionReemplazo = seccion;
+                
+                // Llenar el formulario con los datos actuales
+                document.getElementById('tituloReemplazo').value = documento.titulo;
+                document.getElementById('codigoReemplazo').value = documento.codigo;
+                
+                // Configurar la vigencia según el tipo
+                const tipoVigencia = documento.tipoVigencia;
+                let elementoVigencia;
+                
+                if (tipoVigencia === 'dias') {
+                    elementoVigencia = document.querySelector('#modalReemplazo .vigencia-option[data-tipo="dias"]');
+                    document.getElementById('diasModal').value = Math.ceil((new Date(documento.fechaVencimiento) - new Date(documento.fechaCreacion)) / (24 * 60 * 60 * 1000));
+                } else if (tipoVigencia === 'meses') {
+                    elementoVigencia = document.querySelector('#modalReemplazo .vigencia-option[data-tipo="meses"]');
+                    document.getElementById('mesesModal').value = Math.ceil((new Date(documento.fechaVencimiento) - new Date(documento.fechaCreacion)) / (30 * 24 * 60 * 60 * 1000));
+                } else if (tipoVigencia === 'fecha') {
+                    elementoVigencia = document.querySelector('#modalReemplazo .vigencia-option[data-tipo="fecha"]');
+                    document.getElementById('fechaModal').value = new Date(documento.fechaVencimiento).toISOString().split('T')[0];
                 }
-            };
+                
+                seleccionarVigenciaModal(elementoVigencia);
+                
+                // Mostrar el modal
+                document.getElementById('modalReemplazo').style.display = 'flex';
+            }
+        }
+
+        // Función para procesar el reemplazo desde el modal
+        async function procesarReemplazo() {
+            const titulo = document.getElementById('tituloReemplazo').value;
+            const codigo = document.getElementById('codigoReemplazo').value;
+            const archivo = document.getElementById('archivoReemplazo').files[0];
             
-            archivoInput.click();
+            if (!archivo) {
+                alert('Por favor selecciona un archivo');
+                return;
+            }
+
+            // Calcular fecha de vencimiento según el tipo seleccionado
+            const tipoVigencia = document.querySelector('#modalReemplazo .vigencia-option.selected').getAttribute('data-tipo');
+            let fechaVencimiento;
+
+            if (tipoVigencia === 'dias') {
+                const dias = parseInt(document.getElementById('diasModal').value);
+                fechaVencimiento = new Date(Date.now() + dias * 24 * 60 * 60 * 1000);
+            } else if (tipoVigencia === 'meses') {
+                const meses = parseInt(document.getElementById('mesesModal').value);
+                fechaVencimiento = new Date(Date.now() + meses * 30 * 24 * 60 * 60 * 1000);
+            } else if (tipoVigencia === 'fecha') {
+                fechaVencimiento = new Date(document.getElementById('fechaModal').value);
+            }
+
+            // Leer archivo como Base64
+            const archivoData = await leerArchivoComoBase64(archivo);
+
+            // Actualizar el documento
+            documentoReemplazo.titulo = titulo;
+            documentoReemplazo.codigo = codigo;
+            documentoReemplazo.tipoVigencia = tipoVigencia;
+            documentoReemplazo.fechaCreacion = new Date().toISOString();
+            documentoReemplazo.fechaVencimiento = fechaVencimiento.toISOString();
+            documentoReemplazo.archivo = archivo.name;
+            documentoReemplazo.archivoData = archivoData;
+
+            guardarDatos();
+            cargarSeccion(seccionReemplazo);
+            cerrarModalReemplazo();
+            actualizarDashboard();
+            verificarVencimientos();
+            
+            alert('✅ Documento reemplazado correctamente');
+        }
+
+        function cerrarModalReemplazo() {
+            document.getElementById('modalReemplazo').style.display = 'none';
+            document.getElementById('formReemplazo').reset();
+            documentoReemplazo = null;
+            seccionReemplazo = null;
         }
 
         function cargarDatos() {
             cargarSeccion('seguridad');
             cargarSeccion('produccion');
             cargarSeccion('rh');
+            cargarSeccion('contabilidad');
+            cargarEmpleados();
             cargarComunicados();
         }
 
@@ -1013,7 +1513,7 @@
             if (documentosSeccion.length === 0) {
                 lista.innerHTML = `
                     <div class="empty-state">
-                        <div>${seccion === 'seguridad' ? '🛡️' : seccion === 'produccion' ? '🏭' : '👥'}</div>
+                        <div>${seccion === 'seguridad' ? '🛡️' : seccion === 'produccion' ? '🏭' : seccion === 'rh' ? '👥' : '💰'}</div>
                         <p>No hay documentos de ${seccion} cargados</p>
                         <p>Haz clic en "Agregar Documento" para comenzar</p>
                     </div>
@@ -1049,6 +1549,62 @@
                             <button class="btn btn-warning" onclick="reemplazarDocumento('${seccion}', ${doc.id})">🔄 Reemplazar</button>
                         </div>
                     </li>
+                `;
+            }).join('');
+        }
+
+        function cargarEmpleados() {
+            const lista = document.getElementById('listaEmpleados');
+            const empleadosActivos = empleados.filter(emp => emp.activo);
+
+            if (empleadosActivos.length === 0) {
+                lista.innerHTML = `
+                    <div class="empty-state">
+                        <div>👥</div>
+                        <p>No hay empleados registrados</p>
+                        <p>Haz clic en "Agregar Empleado" para comenzar</p>
+                    </div>
+                `;
+                return;
+            }
+
+            lista.innerHTML = empleadosActivos.map(emp => {
+                return `
+                    <div class="employee-card">
+                        <div class="employee-header">
+                            <div class="employee-name">${emp.nombre}</div>
+                            <div class="document-actions">
+                                <button class="btn btn-primary" onclick="descargarArchivosEmpleado(${emp.id})">📥 Descargar Archivos</button>
+                                <button class="btn btn-danger" onclick="eliminarEmpleado(${emp.id})">🗑️ Eliminar</button>
+                            </div>
+                        </div>
+                        <div class="employee-details">
+                            <div class="employee-detail">
+                                <span class="detail-label">Puesto</span>
+                                <span class="detail-value">${emp.puesto}</span>
+                            </div>
+                            <div class="employee-detail">
+                                <span class="detail-label">Departamento</span>
+                                <span class="detail-value">${emp.departamento}</span>
+                            </div>
+                            <div class="employee-detail">
+                                <span class="detail-label">Fecha de Contratación</span>
+                                <span class="detail-value">${new Date(emp.fechaContratacion).toLocaleDateString()}</span>
+                            </div>
+                            <div class="employee-detail">
+                                <span class="detail-label">Archivos</span>
+                                <span class="detail-value">${emp.archivos.length} archivos</span>
+                            </div>
+                        </div>
+                        <div class="employee-files">
+                            <strong>Archivos del empleado:</strong>
+                            <ul class="files-list">
+                                ${emp.archivos.map(archivo => `
+                                    <li>📎 ${archivo.nombre} (${(archivo.tamaño / 1024).toFixed(2)} KB)</li>
+                                `).join('')}
+                            </ul>
+                        </div>
+                    </div>
                 `;
             }).join('');
         }
@@ -1097,6 +1653,23 @@
             }
         }
 
+        function descargarArchivosEmpleado(id) {
+            const empleado = empleados.find(emp => emp.id === id);
+            if (empleado && empleado.archivos.length > 0) {
+                // Descargar cada archivo individualmente
+                empleado.archivos.forEach(archivo => {
+                    const link = document.createElement('a');
+                    link.href = archivo.data;
+                    link.download = archivo.nombre;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                });
+            } else {
+                alert('❌ No hay archivos para descargar para este empleado.');
+            }
+        }
+
         function eliminarComunicado(id) {
             if (confirm('¿Estás seguro de que quieres eliminar este comunicado?')) {
                 const comunicadoIndex = comunicados.findIndex(com => com.id === id);
@@ -1104,6 +1677,18 @@
                     comunicados[comunicadoIndex].activo = false;
                     guardarDatos();
                     cargarComunicados();
+                    actualizarDashboard();
+                }
+            }
+        }
+
+        function eliminarEmpleado(id) {
+            if (confirm('¿Estás seguro de que quieres eliminar este empleado?')) {
+                const empleadoIndex = empleados.findIndex(emp => emp.id === id);
+                if (empleadoIndex !== -1) {
+                    empleados[empleadoIndex].activo = false;
+                    guardarDatos();
+                    cargarEmpleados();
                     actualizarDashboard();
                 }
             }
@@ -1166,6 +1751,7 @@
         function actualizarDashboard() {
             const totalDocs = Object.keys(documentos).reduce((total, seccion) => total + documentos[seccion].filter(doc => doc.activo).length, 0);
             const comunicadosActivos = comunicados.filter(com => com.activo).length;
+            const empleadosActivos = empleados.filter(emp => emp.activo).length;
             
             // Calcular documentos por vencer
             const ahora = new Date();
@@ -1181,11 +1767,13 @@
             document.getElementById('totalDocs').textContent = totalDocs;
             document.getElementById('vencidosDocs').textContent = vencidosCount;
             document.getElementById('comunicadosActivos').textContent = comunicadosActivos;
+            document.getElementById('empleadosActivos').textContent = empleadosActivos;
         }
 
         function guardarDatos() {
             localStorage.setItem('aldremarkz_documentos', JSON.stringify(documentos));
             localStorage.setItem('aldremarkz_comunicados', JSON.stringify(comunicados));
+            localStorage.setItem('aldremarkz_empleados', JSON.stringify(empleados));
         }
 
         // Cargar dashboard por defecto
