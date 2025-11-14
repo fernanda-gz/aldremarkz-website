@@ -113,7 +113,7 @@
             transition: background 0.3s ease;
         }
 
-        .nav-menu a:hover {
+        .nav-menu a:hover, .nav-menu a.active {
             background: #667eea;
         }
 
@@ -129,11 +129,16 @@
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             margin-bottom: 2rem;
+            display: none;
+        }
+
+        .section.active {
+            display: block;
         }
 
         .section h2 {
             color: #2c3e50;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
             border-bottom: 2px solid #667eea;
             padding-bottom: 0.5rem;
         }
@@ -181,7 +186,7 @@
         }
 
         .download-btn {
-            background: #667eea;
+            background: #27ae60;
             color: white;
             padding: 0.5rem 1rem;
             border: none;
@@ -189,6 +194,11 @@
             cursor: pointer;
             text-decoration: none;
             font-size: 0.9rem;
+            transition: background 0.3s ease;
+        }
+
+        .download-btn:hover {
+            background: #219653;
         }
 
         .logout-btn {
@@ -198,6 +208,30 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: #c0392b;
+        }
+
+        .comunicado {
+            background: #e8f4fd;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border-left: 4px solid #3498db;
+        }
+
+        .comunicado.importante {
+            background: #fff3cd;
+            border-left: 4px solid #f39c12;
+        }
+
+        .file-info {
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
         }
     </style>
 </head>
@@ -225,17 +259,17 @@
 
         <nav class="portal-nav">
             <ul class="nav-menu">
-                <li><a href="#dashboard">Dashboard</a></li>
-                <li><a href="#documentos">Documentos</a></li>
-                <li><a href="#produccion">Producción</a></li>
-                <li><a href="#rh">Recursos Humanos</a></li>
-                <li><a href="#comunicados">Comunicados</a></li>
+                <li><a href="#dashboard" class="nav-link active" data-section="dashboard">📊 Dashboard</a></li>
+                <li><a href="#seguridad" class="nav-link" data-section="seguridad">🛡️ Seguridad Industrial</a></li>
+                <li><a href="#produccion" class="nav-link" data-section="produccion">🏭 Producción</a></li>
+                <li><a href="#rh" class="nav-link" data-section="rh">👥 Recursos Humanos</a></li>
+                <li><a href="#comunicados" class="nav-link" data-section="comunicados">📢 Comunicados</a></li>
             </ul>
         </nav>
 
         <main class="portal-content">
             <!-- DASHBOARD -->
-            <section id="dashboard" class="section">
+            <section id="dashboard" class="section active">
                 <h2>📊 Dashboard General</h2>
                 <div class="stats-grid">
                     <div class="stat-card">
@@ -257,25 +291,37 @@
                 </div>
             </section>
 
-            <!-- DOCUMENTOS INTERNOS -->
-            <section id="documentos" class="section">
-                <h2>📋 Documentos Internos</h2>
+            <!-- SEGURIDAD INDUSTRIAL -->
+            <section id="seguridad" class="section">
+                <h2>🛡️ Seguridad Industrial</h2>
                 <ul class="documents-list">
                     <li>
-                        <span>Manual de Procedimientos 2024</span>
-                        <a href="#" class="download-btn">Descargar</a>
+                        <div>
+                            <strong>Formato de Inspección de Seguridad</strong>
+                            <div class="file-info">Formato DI-001 | Actualizado: 15 Nov 2024</div>
+                        </div>
+                        <button onclick="descargarArchivo('inspeccion-seguridad')" class="download-btn">📥 Descargar</button>
                     </li>
                     <li>
-                        <span>Políticas de Seguridad Industrial</span>
-                        <a href="#" class="download-btn">Descargar</a>
+                        <div>
+                            <strong>Reporte de Incidentes</strong>
+                            <div class="file-info">Formato DI-002 | Actualizado: 10 Nov 2024</div>
+                        </div>
+                        <button onclick="descargarArchivo('reporte-incidentes')" class="download-btn">📥 Descargar</button>
                     </li>
                     <li>
-                        <span>Formatos de Reporte de Producción</span>
-                        <a href="#" class="download-btn">Descargar</a>
+                        <div>
+                            <strong>Checklist de Equipo de Protección</strong>
+                            <div class="file-info">Formato DI-003 | Actualizado: 05 Nov 2024</div>
+                        </div>
+                        <button onclick="descargarArchivo('checklist-epi')" class="download-btn">📥 Descargar</button>
                     </li>
                     <li>
-                        <span>Reglamento Interno de Trabajo</span>
-                        <a href="#" class="download-btn">Descargar</a>
+                        <div>
+                            <strong>Procedimiento de Evacuación</strong>
+                            <div class="file-info">Documento PRO-015 | Actualizado: 01 Nov 2024</div>
+                        </div>
+                        <button onclick="descargarArchivo('procedimiento-evacuacion')" class="download-btn">📥 Descargar</button>
                     </li>
                 </ul>
             </section>
@@ -283,6 +329,7 @@
             <!-- PRODUCCIÓN -->
             <section id="produccion" class="section">
                 <h2>🏭 Reportes de Producción</h2>
+                
                 <div class="stats-grid">
                     <div class="stat-card">
                         <div class="stat-number">12,580</div>
@@ -301,6 +348,31 @@
                         <div class="stat-label">Merma Actual</div>
                     </div>
                 </div>
+
+                <h3 style="margin-top: 2rem; margin-bottom: 1rem;">Formatos de Producción</h3>
+                <ul class="documents-list">
+                    <li>
+                        <div>
+                            <strong>Reporte Diario de Producción</strong>
+                            <div class="file-info">Formato PRO-001 | Actualizado: 20 Nov 2024</div>
+                        </div>
+                        <button onclick="descargarArchivo('reporte-diario')" class="download-btn">📥 Descargar</button>
+                    </li>
+                    <li>
+                        <div>
+                            <strong>Control de Calidad - Ladrillos</strong>
+                            <div class="file-info">Formato CAL-001 | Actualizado: 18 Nov 2024</div>
+                        </div>
+                        <button onclick="descargarArchivo('control-calidad')" class="download-btn">📥 Descargar</button>
+                    </li>
+                    <li>
+                        <div>
+                            <strong>Registro de Horas Máquina</strong>
+                            <div class="file-info">Formato PRO-002 | Actualizado: 15 Nov 2024</div>
+                        </div>
+                        <button onclick="descargarArchivo('horas-maquina')" class="download-btn">📥 Descargar</button>
+                    </li>
+                </ul>
             </section>
 
             <!-- RECURSOS HUMANOS -->
@@ -308,20 +380,32 @@
                 <h2>👥 Recursos Humanos</h2>
                 <ul class="documents-list">
                     <li>
-                        <span>Formatos de Vacaciones</span>
-                        <a href="#" class="download-btn">Descargar</a>
+                        <div>
+                            <strong>Solicitud de Vacaciones</strong>
+                            <div class="file-info">Formato RH-001 | Actualizado: 25 Nov 2024</div>
+                        </div>
+                        <button onclick="descargarArchivo('solicitud-vacaciones')" class="download-btn">📥 Descargar</button>
                     </li>
                     <li>
-                        <span>Solicitud de Permisos</span>
-                        <a href="#" class="download-btn">Descargar</a>
+                        <div>
+                            <strong>Formato de Permisos</strong>
+                            <div class="file-info">Formato RH-002 | Actualizado: 22 Nov 2024</div>
+                        </div>
+                        <button onclick="descargarArchivo('formato-permisos')" class="download-btn">📥 Descargar</button>
                     </li>
                     <li>
-                        <span>Directorio Interno</span>
-                        <a href="#" class="download-btn">Descargar</a>
+                        <div>
+                            <strong>Reglamento Interno de Trabajo</strong>
+                            <div class="file-info">Documento RH-101 | Actualizado: 01 Nov 2024</div>
+                        </div>
+                        <button onclick="descargarArchivo('reglamento-interno')" class="download-btn">📥 Descargar</button>
                     </li>
                     <li>
-                        <span>Calendario de Capacitaciones</span>
-                        <a href="#" class="download-btn">Descargar</a>
+                        <div>
+                            <strong>Directorio Telefónico Interno</strong>
+                            <div class="file-info">Documento RH-102 | Actualizado: 28 Oct 2024</div>
+                        </div>
+                        <button onclick="descargarArchivo('directorio-interno')" class="download-btn">📥 Descargar</button>
                     </li>
                 </ul>
             </section>
@@ -329,16 +413,23 @@
             <!-- COMUNICADOS -->
             <section id="comunicados" class="section">
                 <h2>📢 Comunicados Internos</h2>
-                <div style="background: #e8f4fd; padding: 1.5rem; border-radius: 8px; margin-bottom: 1rem;">
+                
+                <div class="comunicado">
                     <h3 style="color: #2980b9; margin-bottom: 0.5rem;">🔄 Cambio de Turnos - Diciembre</h3>
-                    <p>Se informa sobre los ajustes en los turnos de producción para el mes de diciembre. Favor de revisar el calendario actualizado.</p>
-                    <small style="color: #666;">Publicado: 25 Nov 2024</small>
+                    <p>Se informa sobre los ajustes en los turnos de producción para el mes de diciembre. Favor de revisar el calendario actualizado en el área de producción.</p>
+                    <small style="color: #666;">Publicado: 25 Nov 2024 | Por: Gerencia de Producción</small>
                 </div>
                 
-                <div style="background: #fff3cd; padding: 1.5rem; border-radius: 8px; margin-bottom: 1rem;">
-                    <h3 style="color: #856404; margin-bottom: 0.5rem;">⚠️ Mantenimiento Programado</h3>
-                    <p>El próximo sábado se realizará mantenimiento preventivo en la línea 2 de producción. Favor de planear actividades.</p>
-                    <small style="color: #666;">Publicado: 20 Nov 2024</small>
+                <div class="comunicado importante">
+                    <h3 style="color: #856404; margin-bottom: 0.5rem;">⚠️ Mantenimiento Programado - Línea 2</h3>
+                    <p>El próximo sábado 30 de noviembre se realizará mantenimiento preventivo en la línea 2 de producción. La planta operará con capacidad reducida durante este día.</p>
+                    <small style="color: #666;">Publicado: 20 Nov 2024 | Por: Departamento de Mantenimiento</small>
+                </div>
+
+                <div class="comunicado">
+                    <h3 style="color: #27ae60; margin-bottom: 0.5rem;">🎉 Reconocimiento al Mejor Empleado</h3>
+                    <p>Felicitamos al empleado del mes: Juan Pérez del área de producción. Su dedicación y excelente desempeño son un ejemplo para todos.</p>
+                    <small style="color: #666;">Publicado: 15 Nov 2024 | Por: Recursos Humanos</small>
                 </div>
             </section>
         </main>
@@ -375,20 +466,55 @@
             document.getElementById('errorMessage').style.display = 'none';
         }
 
-        // Navegación suave entre secciones
-        document.querySelectorAll('.nav-menu a').forEach(link => {
+        // Navegación entre secciones
+        document.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
-                const targetId = this.getAttribute('href');
-                const targetSection = document.querySelector(targetId);
                 
-                if (targetSection) {
-                    targetSection.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
+                // Remover active de todos
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+                
+                // Agregar active al clickeado
+                this.classList.add('active');
+                const sectionId = this.getAttribute('data-section');
+                document.getElementById(sectionId).classList.add('active');
             });
+        });
+
+        // Función para descargar archivos (simulada)
+        function descargarArchivo(tipo) {
+            const archivos = {
+                'inspeccion-seguridad': { nombre: 'Formato_Inspeccion_Seguridad.pdf', tipo: 'PDF' },
+                'reporte-incidentes': { nombre: 'Reporte_Incidentes.pdf', tipo: 'PDF' },
+                'checklist-epi': { nombre: 'Checklist_EPI.pdf', tipo: 'PDF' },
+                'procedimiento-evacuacion': { nombre: 'Procedimiento_Evacuacion.pdf', tipo: 'PDF' },
+                'reporte-diario': { nombre: 'Reporte_Diario_Produccion.xlsx', tipo: 'Excel' },
+                'control-calidad': { nombre: 'Control_Calidad_Ladrillos.pdf', tipo: 'PDF' },
+                'horas-maquina': { nombre: 'Registro_Horas_Maquina.xlsx', tipo: 'Excel' },
+                'solicitud-vacaciones': { nombre: 'Solicitud_Vacaciones.pdf', tipo: 'PDF' },
+                'formato-permisos': { nombre: 'Formato_Permisos.pdf', tipo: 'PDF' },
+                'reglamento-interno': { nombre: 'Reglamento_Interno_Trabajo.pdf', tipo: 'PDF' },
+                'directorio-interno': { nombre: 'Directorio_Interno.pdf', tipo: 'PDF' }
+            };
+
+            const archivo = archivos[tipo];
+            if (archivo) {
+                // Crear un enlace temporal para descarga
+                const link = document.createElement('a');
+                link.href = '#'; // En un caso real, aquí iría la URL del archivo
+                link.download = archivo.nombre;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                alert(`Descargando: ${archivo.nombre}\n\nEn una implementación real, este archivo se descargaría automáticamente.`);
+            }
+        }
+
+        // Cargar dashboard por defecto
+        window.addEventListener('load', function() {
+            document.getElementById('dashboard').classList.add('active');
         });
     </script>
 </body>
