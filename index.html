@@ -13,7 +13,11 @@
 
         body {
             font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                        url('https://scontent.ftij3-2.fna.fbcdn.net/v/t39.30808-6/300858824_494057869392700_1320970965330356779_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=jag2r5s6W2oQ7kNvwH-gSdz&_nc_oc=AdnI4aaIlvD_sh9O0NmJa4A4SqfhPxP5LnisH7_1UW098s3kYJ9kP0OI4Is1a9Qwqmo&_nc_zt=23&_nc_ht=scontent.ftij3-2.fna&_nc_gid=MIVCPkL2ZHTAypl25jPdXQ&oh=00_AfggHC55fW1LeoykNuHLo-x5UxOkIEeScZeqqhOJxr_xHg&oe=691D75E9');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
             height: 100vh;
             display: flex;
             justify-content: center;
@@ -21,13 +25,15 @@
         }
 
         .login-container {
-            background: white;
+            background: rgba(255, 255, 255, 0.95);
             padding: 3rem;
             border-radius: 15px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
             text-align: center;
             max-width: 400px;
             width: 90%;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .logo {
@@ -36,45 +42,57 @@
         }
 
         h1 {
-            color: #333;
+            color: #2c3e50;
             margin-bottom: 0.5rem;
+            font-weight: bold;
         }
 
         .subtitle {
-            color: #666;
+            color: #7f8c8d;
             margin-bottom: 2rem;
+            font-weight: 500;
         }
 
         .password-input {
             width: 100%;
             padding: 15px;
-            border: 2px solid #ddd;
+            border: 2px solid #bdc3c7;
             border-radius: 8px;
             font-size: 1rem;
             margin-bottom: 1rem;
             text-align: center;
+            background: white;
+            transition: border-color 0.3s ease;
+        }
+
+        .password-input:focus {
+            outline: none;
+            border-color: #3498db;
         }
 
         .login-btn {
             width: 100%;
             padding: 15px;
-            background: #667eea;
+            background: #e74c3c;
             color: white;
             border: none;
             border-radius: 8px;
             font-size: 1rem;
             cursor: pointer;
             transition: background 0.3s ease;
+            font-weight: bold;
         }
 
         .login-btn:hover {
-            background: #764ba2;
+            background: #c0392b;
+            transform: translateY(-2px);
         }
 
         .error-message {
             color: #e74c3c;
             margin-top: 1rem;
             display: none;
+            font-weight: bold;
         }
 
         /* Estilos del portal interno */
@@ -114,7 +132,7 @@
         }
 
         .nav-menu a:hover, .nav-menu a.active {
-            background: #667eea;
+            background: #e74c3c;
         }
 
         .portal-content {
@@ -139,7 +157,7 @@
         .section h2 {
             color: #2c3e50;
             margin-bottom: 1.5rem;
-            border-bottom: 2px solid #667eea;
+            border-bottom: 2px solid #e74c3c;
             padding-bottom: 0.5rem;
         }
 
@@ -155,7 +173,7 @@
             padding: 1.5rem;
             border-radius: 8px;
             text-align: center;
-            border-left: 4px solid #667eea;
+            border-left: 4px solid #e74c3c;
         }
 
         .stat-number {
@@ -233,6 +251,12 @@
             font-size: 0.9rem;
             margin-top: 0.5rem;
         }
+
+        .brand-footer {
+            margin-top: 1rem;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
     </style>
 </head>
 <body>
@@ -245,6 +269,10 @@
         <input type="password" id="passwordInput" class="password-input" placeholder="Ingresa la contraseña" onkeypress="checkEnter(event)">
         <button onclick="checkPassword()" class="login-btn">Acceder al Portal</button>
         <div id="errorMessage" class="error-message">Contraseña incorrecta. Intenta nuevamente.</div>
+        
+        <div class="brand-footer">
+            Tecate, Baja California
+        </div>
     </div>
 
     <!-- PORTAL INTERNO -->
