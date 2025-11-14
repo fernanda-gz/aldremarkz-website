@@ -257,6 +257,28 @@
             border-color: #3498db;
         }
 
+        .vigencia-options {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .vigencia-option {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .vigencia-option.selected {
+            background: #3498db;
+            color: white;
+            border-color: #3498db;
+        }
+
         /* Listas de documentos */
         .documents-list {
             list-style: none;
@@ -370,6 +392,14 @@
             margin-bottom: 1rem;
             opacity: 0.5;
         }
+
+        .file-preview {
+            margin-top: 0.5rem;
+            padding: 0.5rem;
+            background: #e8f4fd;
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
     </style>
 </head>
 <body>
@@ -454,13 +484,38 @@
                             <label for="codigoSeguridad">Código/Número:</label>
                             <input type="text" id="codigoSeguridad" class="form-control" placeholder="Ej: DI-001" required>
                         </div>
+                        
                         <div class="form-group">
-                            <label for="vigenciaSeguridad">Vigencia (meses):</label>
-                            <input type="number" id="vigenciaSeguridad" class="form-control" min="1" max="60" value="12" required>
+                            <label>Vigencia:</label>
+                            <div class="vigencia-options">
+                                <div class="vigencia-option selected" data-tipo="dias" onclick="seleccionarVigencia(this, 'seguridad')">
+                                    📅 Días
+                                </div>
+                                <div class="vigencia-option" data-tipo="meses" onclick="seleccionarVigencia(this, 'seguridad')">
+                                    📆 Meses
+                                </div>
+                                <div class="vigencia-option" data-tipo="fecha" onclick="seleccionarVigencia(this, 'seguridad')">
+                                    🗓️ Fecha Específica
+                                </div>
+                            </div>
+                            
+                            <div id="vigenciaDiasSeguridad">
+                                <input type="number" id="diasSeguridad" class="form-control" min="1" max="365" value="30" placeholder="Número de días">
+                            </div>
+                            
+                            <div id="vigenciaMesesSeguridad" style="display: none;">
+                                <input type="number" id="mesesSeguridad" class="form-control" min="1" max="60" value="12" placeholder="Número de meses">
+                            </div>
+                            
+                            <div id="vigenciaFechaSeguridad" style="display: none;">
+                                <input type="date" id="fechaSeguridad" class="form-control" min="<?php echo date('Y-m-d'); ?>">
+                            </div>
                         </div>
+
                         <div class="form-group">
                             <label for="archivoSeguridad">Subir Archivo:</label>
-                            <input type="file" id="archivoSeguridad" class="form-control" accept=".pdf,.doc,.docx,.xlsx" required>
+                            <input type="file" id="archivoSeguridad" class="form-control" accept=".pdf,.doc,.docx,.xlsx" required onchange="mostrarPreview(this, 'previewSeguridad')">
+                            <div id="previewSeguridad" class="file-preview"></div>
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-success">💾 Guardar Documento</button>
@@ -498,13 +553,38 @@
                             <label for="codigoProduccion">Código/Número:</label>
                             <input type="text" id="codigoProduccion" class="form-control" placeholder="Ej: PRO-001" required>
                         </div>
+                        
                         <div class="form-group">
-                            <label for="vigenciaProduccion">Vigencia (meses):</label>
-                            <input type="number" id="vigenciaProduccion" class="form-control" min="1" max="60" value="12" required>
+                            <label>Vigencia:</label>
+                            <div class="vigencia-options">
+                                <div class="vigencia-option selected" data-tipo="dias" onclick="seleccionarVigencia(this, 'produccion')">
+                                    📅 Días
+                                </div>
+                                <div class="vigencia-option" data-tipo="meses" onclick="seleccionarVigencia(this, 'produccion')">
+                                    📆 Meses
+                                </div>
+                                <div class="vigencia-option" data-tipo="fecha" onclick="seleccionarVigencia(this, 'produccion')">
+                                    🗓️ Fecha Específica
+                                </div>
+                            </div>
+                            
+                            <div id="vigenciaDiasProduccion">
+                                <input type="number" id="diasProduccion" class="form-control" min="1" max="365" value="30" placeholder="Número de días">
+                            </div>
+                            
+                            <div id="vigenciaMesesProduccion" style="display: none;">
+                                <input type="number" id="mesesProduccion" class="form-control" min="1" max="60" value="12" placeholder="Número de meses">
+                            </div>
+                            
+                            <div id="vigenciaFechaProduccion" style="display: none;">
+                                <input type="date" id="fechaProduccion" class="form-control" min="<?php echo date('Y-m-d'); ?>">
+                            </div>
                         </div>
+
                         <div class="form-group">
                             <label for="archivoProduccion">Subir Archivo:</label>
-                            <input type="file" id="archivoProduccion" class="form-control" accept=".pdf,.doc,.docx,.xlsx" required>
+                            <input type="file" id="archivoProduccion" class="form-control" accept=".pdf,.doc,.docx,.xlsx" required onchange="mostrarPreview(this, 'previewProduccion')">
+                            <div id="previewProduccion" class="file-preview"></div>
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-success">💾 Guardar Documento</button>
@@ -541,13 +621,38 @@
                             <label for="codigoRH">Código/Número:</label>
                             <input type="text" id="codigoRH" class="form-control" placeholder="Ej: RH-001" required>
                         </div>
+                        
                         <div class="form-group">
-                            <label for="vigenciaRH">Vigencia (meses):</label>
-                            <input type="number" id="vigenciaRH" class="form-control" min="1" max="60" value="12" required>
+                            <label>Vigencia:</label>
+                            <div class="vigencia-options">
+                                <div class="vigencia-option selected" data-tipo="dias" onclick="seleccionarVigencia(this, 'rh')">
+                                    📅 Días
+                                </div>
+                                <div class="vigencia-option" data-tipo="meses" onclick="seleccionarVigencia(this, 'rh')">
+                                    📆 Meses
+                                </div>
+                                <div class="vigencia-option" data-tipo="fecha" onclick="seleccionarVigencia(this, 'rh')">
+                                    🗓️ Fecha Específica
+                                </div>
+                            </div>
+                            
+                            <div id="vigenciaDiasRH">
+                                <input type="number" id="diasRH" class="form-control" min="1" max="365" value="30" placeholder="Número de días">
+                            </div>
+                            
+                            <div id="vigenciaMesesRH" style="display: none;">
+                                <input type="number" id="mesesRH" class="form-control" min="1" max="60" value="12" placeholder="Número de meses">
+                            </div>
+                            
+                            <div id="vigenciaFechaRH" style="display: none;">
+                                <input type="date" id="fechaRH" class="form-control" min="<?php echo date('Y-m-d'); ?>">
+                            </div>
                         </div>
+
                         <div class="form-group">
                             <label for="archivoRH">Subir Archivo:</label>
-                            <input type="file" id="archivoRH" class="form-control" accept=".pdf,.doc,.docx,.xlsx" required>
+                            <input type="file" id="archivoRH" class="form-control" accept=".pdf,.doc,.docx,.xlsx" required onchange="mostrarPreview(this, 'previewRH')">
+                            <div id="previewRH" class="file-preview"></div>
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-success">💾 Guardar Documento</button>
@@ -635,6 +740,12 @@
         
         let comunicados = JSON.parse(localStorage.getItem('aldremarkz_comunicados')) || [];
 
+        // Inicializar el sistema al cargar
+        document.addEventListener('DOMContentLoaded', function() {
+            actualizarDashboard();
+            verificarVencimientos();
+        });
+
         function checkEnter(event) {
             if (event.key === "Enter") {
                 checkPassword();
@@ -682,6 +793,8 @@
         // Funciones de administración
         function mostrarFormulario(seccion) {
             document.getElementById(`form${seccion.charAt(0).toUpperCase() + seccion.slice(1)}`).style.display = 'block';
+            // Resetear selección de vigencia
+            seleccionarVigencia(document.querySelector(`#form${seccion.charAt(0).toUpperCase() + seccion.slice(1)} .vigencia-option[data-tipo="dias"]`), seccion);
         }
 
         function ocultarFormulario(seccion) {
@@ -698,10 +811,48 @@
             document.getElementById('formNuevoComunicado').reset();
         }
 
+        function seleccionarVigencia(elemento, seccion) {
+            // Remover selección de todos los botones
+            elemento.parentElement.querySelectorAll('.vigencia-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            // Agregar selección al clickeado
+            elemento.classList.add('selected');
+            
+            const tipo = elemento.getAttribute('data-tipo');
+            
+            // Ocultar todos los campos
+            document.getElementById(`vigenciaDias${seccion.charAt(0).toUpperCase() + seccion.slice(1)}`).style.display = 'none';
+            document.getElementById(`vigenciaMeses${seccion.charAt(0).toUpperCase() + seccion.slice(1)}`).style.display = 'none';
+            document.getElementById(`vigenciaFecha${seccion.charAt(0).toUpperCase() + seccion.slice(1)}`).style.display = 'none';
+            
+            // Mostrar el campo correspondiente
+            if (tipo === 'dias') {
+                document.getElementById(`vigenciaDias${seccion.charAt(0).toUpperCase() + seccion.slice(1)}`).style.display = 'block';
+            } else if (tipo === 'meses') {
+                document.getElementById(`vigenciaMeses${seccion.charAt(0).toUpperCase() + seccion.slice(1)}`).style.display = 'block';
+            } else if (tipo === 'fecha') {
+                document.getElementById(`vigenciaFecha${seccion.charAt(0).toUpperCase() + seccion.slice(1)}`).style.display = 'block';
+                // Establecer fecha mínima como hoy
+                const fechaInput = document.getElementById(`fecha${seccion.charAt(0).toUpperCase() + seccion.slice(1)}`);
+                fechaInput.min = new Date().toISOString().split('T')[0];
+            }
+        }
+
+        function mostrarPreview(input, previewId) {
+            const preview = document.getElementById(previewId);
+            if (input.files && input.files[0]) {
+                const file = input.files[0];
+                preview.innerHTML = `📎 Archivo seleccionado: <strong>${file.name}</strong> (${(file.size / 1024).toFixed(2)} KB)`;
+            } else {
+                preview.innerHTML = '';
+            }
+        }
+
         function agregarDocumento(seccion) {
             const titulo = document.getElementById(`titulo${seccion.charAt(0).toUpperCase() + seccion.slice(1)}`).value;
             const codigo = document.getElementById(`codigo${seccion.charAt(0).toUpperCase() + seccion.slice(1)}`).value;
-            const vigencia = parseInt(document.getElementById(`vigencia${seccion.charAt(0).toUpperCase() + seccion.slice(1)}`).value);
             const archivo = document.getElementById(`archivo${seccion.charAt(0).toUpperCase() + seccion.slice(1)}`).files[0];
             
             if (!archivo) {
@@ -709,14 +860,29 @@
                 return;
             }
 
+            // Calcular fecha de vencimiento según el tipo seleccionado
+            const tipoVigencia = document.querySelector(`#form${seccion.charAt(0).toUpperCase() + seccion.slice(1)} .vigencia-option.selected`).getAttribute('data-tipo');
+            let fechaVencimiento;
+
+            if (tipoVigencia === 'dias') {
+                const dias = parseInt(document.getElementById(`dias${seccion.charAt(0).toUpperCase() + seccion.slice(1)}`).value);
+                fechaVencimiento = new Date(Date.now() + dias * 24 * 60 * 60 * 1000);
+            } else if (tipoVigencia === 'meses') {
+                const meses = parseInt(document.getElementById(`meses${seccion.charAt(0).toUpperCase() + seccion.slice(1)}`).value);
+                fechaVencimiento = new Date(Date.now() + meses * 30 * 24 * 60 * 60 * 1000);
+            } else if (tipoVigencia === 'fecha') {
+                fechaVencimiento = new Date(document.getElementById(`fecha${seccion.charAt(0).toUpperCase() + seccion.slice(1)}`).value);
+            }
+
             const nuevoDocumento = {
                 id: Date.now(),
                 titulo: titulo,
                 codigo: codigo,
-                vigencia: vigencia,
+                tipoVigencia: tipoVigencia,
                 fechaCreacion: new Date().toISOString(),
-                fechaVencimiento: new Date(Date.now() + vigencia * 30 * 24 * 60 * 60 * 1000).toISOString(),
+                fechaVencimiento: fechaVencimiento.toISOString(),
                 archivo: archivo.name,
+                archivoData: await leerArchivoComoBase64(archivo),
                 activo: true
             };
 
@@ -728,6 +894,18 @@
             verificarVencimientos();
             
             alert('✅ Documento agregado correctamente');
+        }
+
+        // Función para leer archivo como Base64 (para descarga)
+        function leerArchivoComoBase64(archivo) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    resolve(e.target.result);
+                };
+                reader.onerror = reject;
+                reader.readAsDataURL(archivo);
+            });
         }
 
         function agregarComunicado() {
@@ -758,14 +936,25 @@
             archivoInput.type = 'file';
             archivoInput.accept = '.pdf,.doc,.docx,.xlsx';
             
-            archivoInput.onchange = function(e) {
+            archivoInput.onchange = async function(e) {
                 const archivo = e.target.files[0];
                 if (archivo) {
                     const documentoIndex = documentos[seccion].findIndex(doc => doc.id === id);
                     if (documentoIndex !== -1) {
                         documentos[seccion][documentoIndex].archivo = archivo.name;
+                        documentos[seccion][documentoIndex].archivoData = await leerArchivoComoBase64(archivo);
                         documentos[seccion][documentoIndex].fechaCreacion = new Date().toISOString();
-                        documentos[seccion][documentoIndex].fechaVencimiento = new Date(Date.now() + documentos[seccion][documentoIndex].vigencia * 30 * 24 * 60 * 60 * 1000).toISOString();
+                        
+                        // Mantener la misma fecha de vencimiento o recalcular según el tipo
+                        const tipoVigencia = documentos[seccion][documentoIndex].tipoVigencia;
+                        if (tipoVigencia === 'dias' || tipoVigencia === 'meses') {
+                            // Recalcular fecha de vencimiento desde hoy
+                            const fechaOriginal = new Date(documentos[seccion][documentoIndex].fechaVencimiento);
+                            const fechaCreacion = new Date(documentos[seccion][documentoIndex].fechaCreacion);
+                            const diferencia = fechaOriginal - fechaCreacion;
+                            documentos[seccion][documentoIndex].fechaVencimiento = new Date(Date.now() + diferencia).toISOString();
+                        }
+                        // Si es fecha específica, se mantiene la misma fecha
                         
                         guardarDatos();
                         cargarSeccion(seccion);
@@ -802,23 +991,36 @@
                 return;
             }
 
-            lista.innerHTML = documentosSeccion.map(doc => `
-                <li>
-                    <div class="document-info">
-                        <span class="document-title">${doc.titulo}</span>
-                        <div class="document-meta">
-                            <strong>Código:</strong> ${doc.codigo} | 
-                            <strong>Vigencia:</strong> ${doc.vigencia} meses | 
-                            <strong>Creado:</strong> ${new Date(doc.fechaCreacion).toLocaleDateString()} |
-                            <strong>Vence:</strong> ${new Date(doc.fechaVencimiento).toLocaleDateString()}
+            lista.innerHTML = documentosSeccion.map(doc => {
+                const fechaVencimiento = new Date(doc.fechaVencimiento);
+                const ahora = new Date();
+                const diasRestantes = Math.ceil((fechaVencimiento - ahora) / (24 * 60 * 60 * 1000));
+                
+                let estado = '';
+                if (diasRestantes <= 30) {
+                    estado = `<span style="color: #e74c3c; font-weight: bold;">⏰ Vence en ${diasRestantes} días</span>`;
+                } else {
+                    estado = `<span style="color: #27ae60;">✅ Vigente</span>`;
+                }
+
+                return `
+                    <li>
+                        <div class="document-info">
+                            <span class="document-title">${doc.titulo}</span>
+                            <div class="document-meta">
+                                <strong>Código:</strong> ${doc.codigo} | 
+                                <strong>Creado:</strong> ${new Date(doc.fechaCreacion).toLocaleDateString()} |
+                                <strong>Vence:</strong> ${fechaVencimiento.toLocaleDateString()} |
+                                ${estado}
+                            </div>
                         </div>
-                    </div>
-                    <div class="document-actions">
-                        <button class="btn btn-primary" onclick="descargarDocumento('${seccion}', ${doc.id})">📥 Descargar</button>
-                        <button class="btn btn-warning" onclick="reemplazarDocumento('${seccion}', ${doc.id})">🔄 Reemplazar</button>
-                    </div>
-                </li>
-            `).join('');
+                        <div class="document-actions">
+                            <button class="btn btn-primary" onclick="descargarDocumento('${seccion}', ${doc.id})">📥 Descargar</button>
+                            <button class="btn btn-warning" onclick="reemplazarDocumento('${seccion}', ${doc.id})">🔄 Reemplazar</button>
+                        </div>
+                    </li>
+                `;
+            }).join('');
         }
 
         function cargarComunicados() {
@@ -852,9 +1054,16 @@
 
         function descargarDocumento(seccion, id) {
             const documento = documentos[seccion].find(doc => doc.id === id);
-            if (documento) {
-                // En una implementación real, aquí se descargaría el archivo real
-                alert(`📥 Descargando: ${documento.archivo}\n\nEn una implementación real con archivos subidos, el archivo se descargaría automáticamente.`);
+            if (documento && documento.archivoData) {
+                // Crear enlace de descarga
+                const link = document.createElement('a');
+                link.href = documento.archivoData;
+                link.download = documento.archivo;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            } else {
+                alert('❌ No se puede descargar el archivo. Por favor, reemplaza el documento.');
             }
         }
 
@@ -881,13 +1090,14 @@
                     if (doc.activo) {
                         const fechaVencimiento = new Date(doc.fechaVencimiento);
                         if (fechaVencimiento <= unMesDespues && fechaVencimiento >= ahora) {
+                            const diasRestantes = Math.ceil((fechaVencimiento - ahora) / (24 * 60 * 60 * 1000));
                             avisos.push({
                                 tipo: 'documento',
                                 titulo: doc.titulo,
                                 codigo: doc.codigo,
                                 seccion: seccion,
                                 fechaVencimiento: fechaVencimiento,
-                                diasRestantes: Math.ceil((fechaVencimiento - ahora) / (24 * 60 * 60 * 1000))
+                                diasRestantes: diasRestantes
                             });
                         }
                     }
@@ -905,18 +1115,21 @@
                     </div>
                 `;
             } else {
-                listaAvisos.innerHTML = avisos.map(aviso => `
-                    <div class="alert alert-warning">
-                        <strong>⚠️ AVISO DE VENCIMIENTO</strong><br>
-                        <strong>Documento:</strong> ${aviso.titulo} (${aviso.codigo})<br>
-                        <strong>Sección:</strong> ${aviso.seccion}<br>
-                        <strong>Vence en:</strong> ${aviso.diasRestantes} días<br>
-                        <strong>Fecha de vencimiento:</strong> ${aviso.fechaVencimiento.toLocaleDateString()}<br>
-                        <button class="btn btn-warning" onclick="reemplazarDocumento('${aviso.seccion}', ${documentos[aviso.seccion].find(doc => doc.codigo === aviso.codigo).id})" style="margin-top: 0.5rem;">
-                            🔄 Reemplazar Documento
-                        </button>
-                    </div>
-                `).join('');
+                listaAvisos.innerHTML = avisos.map(aviso => {
+                    const documento = documentos[aviso.seccion].find(doc => doc.codigo === aviso.codigo);
+                    return `
+                        <div class="alert alert-warning">
+                            <strong>⚠️ AVISO DE VENCIMIENTO</strong><br>
+                            <strong>Documento:</strong> ${aviso.titulo} (${aviso.codigo})<br>
+                            <strong>Sección:</strong> ${aviso.seccion}<br>
+                            <strong>Vence en:</strong> ${aviso.diasRestantes} días<br>
+                            <strong>Fecha de vencimiento:</strong> ${aviso.fechaVencimiento.toLocaleDateString()}<br>
+                            <button class="btn btn-warning" onclick="reemplazarDocumento('${aviso.seccion}', ${documento.id})" style="margin-top: 0.5rem;">
+                                🔄 Reemplazar Documento
+                            </button>
+                        </div>
+                    `;
+                }).join('');
             }
         }
 
