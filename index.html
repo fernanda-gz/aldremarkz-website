@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aldremarkz - Alfarería Industrial Profesional</title>
+    <title>Aldremarkz - Fabricación de Productos de Arcilla</title>
     <style>
-        /* RESET Y ESTILOS GLOBALES */
+        /* ESTILOS GLOBALES */
         * {
             margin: 0;
             padding: 0;
@@ -13,25 +13,25 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Arial', sans-serif;
             line-height: 1.6;
             color: #333;
             background: #f8f9fa;
         }
 
-        /* PALETA CORPORATIVA */
+        /* PALETA DE COLORES ALFARERÍA */
         :root {
-            --color-primary: #2C5530;
-            --color-secondary: #6B8E23;
-            --color-accent: #8B4513;
-            --color-light: #F8F9FA;
-            --color-dark: #2F4F4F;
+            --color-primary: #8B4513;
+            --color-secondary: #A0522D;
+            --color-accent: #CD853F;
+            --color-light: #FAF0E6;
+            --color-dark: #5D4037;
             --color-text: #333333;
         }
 
-        /* HEADER PROFESIONAL */
-        .corporate-header {
-            background: var(--color-primary);
+        /* HEADER */
+        header {
+            background: var(--color-dark);
             color: white;
             padding: 1rem 0;
             position: fixed;
@@ -50,15 +50,9 @@
             padding: 0 2rem;
         }
 
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
         .logo h1 {
             font-size: 1.8rem;
-            font-weight: 600;
+            font-weight: bold;
         }
 
         .nav-menu {
@@ -75,31 +69,33 @@
         }
 
         .nav-menu a:hover {
-            color: var(--color-secondary);
+            color: var(--color-accent);
         }
 
-        /* HERO CORPORATIVO */
-        .corporate-hero {
-            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-dark) 100%);
+        /* HERO SECTION */
+        .hero {
+            background: linear-gradient(rgba(93, 64, 55, 0.8), rgba(93, 64, 55, 0.8)),
+                        url('https://images.unsplash.com/photo-1582001739979-0923871fffe1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
             color: white;
-            padding: 120px 2rem 80px;
+            padding: 140px 2rem 80px;
             text-align: center;
         }
 
-        .hero-content h2 {
+        .hero h2 {
             font-size: 3rem;
             margin-bottom: 1rem;
-            font-weight: 300;
         }
 
-        .hero-content p {
+        .hero p {
             font-size: 1.3rem;
-            opacity: 0.9;
             max-width: 600px;
             margin: 0 auto;
+            opacity: 0.9;
         }
 
-        /* SECCIONES GENERALES */
+        /* SECCIONES */
         .section {
             padding: 80px 2rem;
             max-width: 1200px;
@@ -110,64 +106,154 @@
             text-align: center;
             font-size: 2.5rem;
             margin-bottom: 3rem;
-            color: var(--color-primary);
-            font-weight: 300;
-        }
-
-        /* MISIÓN, VISIÓN, VALORES */
-        .corporate-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .corporate-card {
-            background: white;
-            padding: 3rem 2rem;
-            border-radius: 8px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            text-align: center;
-            transition: transform 0.3s ease;
-            border-top: 4px solid var(--color-primary);
-        }
-
-        .corporate-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .card-icon {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-            color: var(--color-primary);
-        }
-
-        .card-title {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
             color: var(--color-dark);
         }
 
-        .card-content {
+        /* MISIÓN Y VISIÓN */
+        .mission-vision {
+            background: white;
+        }
+
+        .mv-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+        }
+
+        .mv-card {
+            background: var(--color-light);
+            padding: 3rem 2rem;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .mv-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .mv-title {
+            font-size: 1.5rem;
+            color: var(--color-dark);
+            margin-bottom: 1rem;
+        }
+
+        .mv-content {
             color: var(--color-text);
             line-height: 1.8;
         }
 
-        /* SECCIÓN DE EMPLEOS */
-        .jobs-section {
+        /* PRODUCTOS */
+        .products {
+            background: var(--color-light);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--color-primary);
+        }
+
+        .product-title {
+            font-size: 1.3rem;
+            color: var(--color-dark);
+            margin-bottom: 1rem;
+        }
+
+        .product-desc {
+            color: var(--color-text);
+            line-height: 1.6;
+        }
+
+        /* PLANTA */
+        .plant {
+            background: white;
+        }
+
+        .plant-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .plant-info h3 {
+            font-size: 1.8rem;
+            color: var(--color-dark);
+            margin-bottom: 1.5rem;
+        }
+
+        .plant-info p {
+            color: var(--color-text);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .plant-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .feature {
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .feature-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--color-primary);
+            display: block;
+        }
+
+        .feature-text {
+            color: var(--color-dark);
+            font-size: 0.9rem;
+        }
+
+        .plant-image img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        /* EMPLEOS */
+        .jobs {
             background: var(--color-light);
         }
 
         .job-announcement {
             background: white;
-            padding: 3rem;
-            border-radius: 8px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            padding: 2.5rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             margin-bottom: 2rem;
         }
 
         .job-title {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             color: var(--color-primary);
             margin-bottom: 1rem;
         }
@@ -175,14 +261,14 @@
         .job-description {
             color: var(--color-text);
             line-height: 1.8;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
         }
 
         .job-requirements {
             background: var(--color-light);
             padding: 1.5rem;
-            border-radius: 6px;
-            margin-bottom: 2rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
         }
 
         .job-requirements h4 {
@@ -214,40 +300,8 @@
             background: var(--color-secondary);
         }
 
-        /* UBICACIONES */
-        .locations-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .location-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            text-align: center;
-        }
-
-        .location-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: var(--color-primary);
-        }
-
-        .location-name {
-            font-size: 1.3rem;
-            color: var(--color-dark);
-            margin-bottom: 1rem;
-        }
-
-        .location-info {
-            color: var(--color-text);
-            line-height: 1.6;
-        }
-
         /* CONTACTO */
-        .contact-section {
+        .contact {
             background: var(--color-dark);
             color: white;
         }
@@ -259,8 +313,8 @@
         }
 
         .contact-info h3 {
+            color: var(--color-accent);
             margin-bottom: 1.5rem;
-            color: var(--color-secondary);
         }
 
         .contact-info p {
@@ -269,7 +323,7 @@
         }
 
         /* FOOTER */
-        .corporate-footer {
+        footer {
             background: var(--color-primary);
             color: white;
             text-align: center;
@@ -287,194 +341,220 @@
                 gap: 1rem;
             }
 
-            .hero-content h2 {
+            .hero h2 {
                 font-size: 2.2rem;
+            }
+
+            .plant-content {
+                grid-template-columns: 1fr;
+            }
+
+            .plant-features {
+                grid-template-columns: 1fr;
             }
 
             .section-title {
                 font-size: 2rem;
             }
-
-            .corporate-card {
-                padding: 2rem 1rem;
-            }
         }
     </style>
 </head>
 <body>
-    <!-- HEADER CORPORATIVO -->
-    <header class="corporate-header">
+    <!-- HEADER -->
+    <header>
         <div class="header-container">
             <div class="logo">
                 <h1>🏭 Aldremarkz</h1>
             </div>
             <ul class="nav-menu">
                 <li><a href="#inicio">Inicio</a></li>
-                <li><a href="#corporativo">Corporativo</a></li>
+                <li><a href="#mision">Misión y Visión</a></li>
+                <li><a href="#productos">Productos</a></li>
+                <li><a href="#planta">Nuestra Planta</a></li>
                 <li><a href="#empleos">Empleos</a></li>
-                <li><a href="#ubicaciones">Ubicaciones</a></li>
                 <li><a href="#contacto">Contacto</a></li>
             </ul>
         </div>
     </header>
 
     <!-- HERO SECTION -->
-    <section id="inicio" class="corporate-hero">
-        <div class="hero-content">
-            <h2>Alfarería Industrial de Alta Calidad</h2>
-            <p>Líderes en fabricación de productos cerámicos para la industria y construcción</p>
-        </div>
+    <section id="inicio" class="hero">
+        <h2>Aldremarkz</h2>
+        <p>Fabricación de productos de arcilla de la más alta calidad</p>
     </section>
 
-    <!-- CORPORATIVO - MISIÓN, VISIÓN, VALORES -->
-    <section id="corporativo" class="section">
+    <!-- MISIÓN Y VISIÓN -->
+    <section id="mision" class="section mission-vision">
         <h2 class="section-title">Nuestra Empresa</h2>
-        <div class="corporate-cards">
-            <div class="corporate-card">
-                <div class="card-icon">🎯</div>
-                <h3 class="card-title">Misión</h3>
-                <div class="card-content">
-                    <p>Ser el proveedor líder en soluciones de alfarería industrial, ofreciendo productos de la más alta calidad que superen las expectativas de nuestros clientes en los sectores de construcción e industria.</p>
+        <div class="mv-grid">
+            <div class="mv-card">
+                <div class="mv-icon">🎯</div>
+                <h3 class="mv-title">Misión</h3>
+                <div class="mv-content">
+                    <p>En Aldremarkz nos dedicamos a la fabricación de productos de arcilla de la más alta calidad, satisfaciendo las necesidades de nuestros clientes con soluciones innovadoras y sostenibles.</p>
                 </div>
             </div>
 
-            <div class="corporate-card">
-                <div class="card-icon">👁️</div>
-                <h3 class="card-title">Visión</h3>
-                <div class="card-content">
-                    <p>Consolidarnos como la empresa de referencia en alfarería industrial a nivel nacional, reconocida por nuestra innovación, calidad y compromiso con el desarrollo sostenible.</p>
+            <div class="mv-card">
+                <div class="mv-icon">👁️</div>
+                <h3 class="mv-title">Visión</h3>
+                <div class="mv-content">
+                    <p>Ser la empresa líder en fabricación de productos de arcilla, reconocida por nuestra calidad, innovación y compromiso con el medio ambiente y la comunidad.</p>
                 </div>
             </div>
 
-            <div class="corporate-card">
-                <div class="card-icon">💎</div>
-                <h3 class="card-title">Valores</h3>
-                <div class="card-content">
+            <div class="mv-card">
+                <div class="mv-icon">💎</div>
+                <h3 class="mv-title">Valores</h3>
+                <div class="mv-content">
                     <p><strong>Calidad:</strong> Excelencia en cada producto<br>
                     <strong>Innovación:</strong> Mejora continua<br>
-                    <strong>Integridad:</strong> Transparencia y honestidad<br>
-                    <strong>Sostenibilidad:</strong> Compromiso ambiental</p>
+                    <strong>Responsabilidad:</strong> Compromiso ambiental<br>
+                    <strong>Integridad:</strong> Honestidad y transparencia</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- SECCIÓN DE EMPLEOS -->
-    <section id="empleos" class="section jobs-section">
+    <!-- PRODUCTOS -->
+    <section id="productos" class="section products">
+        <h2 class="section-title">Nuestros Productos</h2>
+        <div class="products-grid">
+            <div class="product-card">
+                <div class="product-icon">🧱</div>
+                <h3 class="product-title">Ladrillos</h3>
+                <p class="product-desc">Ladrillos de arcilla de alta resistencia para construcción</p>
+            </div>
+
+            <div class="product-card">
+                <div class="product-icon">🏺</div>
+                <h3 class="product-title">Tejas</h3>
+                <p class="product-desc">Tejas cerámicas para techos residenciales e industriales</p>
+            </div>
+
+            <div class="product-card">
+                <div class="product-icon">🧩</div>
+                <h3 class="product-title">Piezas Especiales</h3>
+                <p class="product-desc">Productos cerámicos personalizados según necesidades</p>
+            </div>
+
+            <div class="product-card">
+                <div class="product-icon">🔧</div>
+                <h3 class="product-title">Materiales para Construcción</h3>
+                <p class="product-desc">Diversos materiales cerámicos para el sector construcción</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- PLANTA -->
+    <section id="planta" class="section plant">
+        <h2 class="section-title">Nuestra Planta</h2>
+        <div class="plant-content">
+            <div class="plant-info">
+                <h3>Instalaciones de Producción</h3>
+                <p>Contamos con una planta moderna equipada con tecnología de punta para la fabricación de productos de arcilla. Nuestras instalaciones nos permiten garantizar la más alta calidad en cada uno de nuestros productos.</p>
+                
+                <p>Ubicada estratégicamente para optimizar la logística y distribución, nuestra planta opera con los más altos estándares de calidad y seguridad.</p>
+
+                <div class="plant-features">
+                    <div class="feature">
+                        <span class="feature-number">5,000+</span>
+                        <span class="feature-text">m² de Instalaciones</span>
+                    </div>
+                    <div class="feature">
+                        <span class="feature-number">50+</span>
+                        <span class="feature-text">Colaboradores</span>
+                    </div>
+                    <div class="feature">
+                        <span class="feature-number">24/7</span>
+                        <span class="feature-text">Capacidad Productiva</span>
+                    </div>
+                    <div class="feature">
+                        <span class="feature-number">100%</span>
+                        <span class="feature-text">Calidad Garantizada</span>
+                    </div>
+                </div>
+            </div>
+            <div class="plant-image">
+                <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Planta de producción">
+            </div>
+        </div>
+    </section>
+
+    <!-- EMPLEOS -->
+    <section id="empleos" class="section jobs">
         <h2 class="section-title">Únete a Nuestro Equipo</h2>
         
         <div class="job-announcement">
-            <h3 class="job-title">🔧 Técnico en Alfarería Industrial</h3>
+            <h3 class="job-title">🏭 Operador de Máquinas</h3>
             <div class="job-description">
-                <p>Buscamos técnicos especializados en procesos de fabricación cerámica para unirse a nuestro equipo de producción. Ofrecemos ambiente de trabajo estable y oportunidades de crecimiento.</p>
-            </div>
-            
-            <div class="job-requirements">
-                <h4>Requisitos:</h4>
-                <ul>
-                    <li>Experiencia en procesos de alfarería industrial</li>
-                    <li>Conocimiento en manejo de hornos y esmaltes</li>
-                    <li>Disponibilidad para turnos rotativos</li>
-                    <li>Compromiso con estándares de calidad</li>
-                </ul>
-            </div>
-            
-            <button class="apply-btn">Postularme a este puesto</button>
-        </div>
-
-        <div class="job-announcement">
-            <h3 class="job-title">📦 Operador de Maquinaria</h3>
-            <div class="job-description">
-                <p>Vacante para operador especializado en maquinaria de producción cerámica. Capacitación incluida para candidatos con experiencia en maquinaria industrial.</p>
+                <p>Buscamos operadores especializados en maquinaria para producción cerámica. Ofrecemos estabilidad laboral y oportunidades de crecimiento dentro de la empresa.</p>
             </div>
             
             <div class="job-requirements">
                 <h4>Requisitos:</h4>
                 <ul>
                     <li>Experiencia en operación de maquinaria industrial</li>
-                    <li>Conocimientos básicos de mantenimiento</li>
-                    <li>Responsabilidad y atención al detalle</li>
+                    <li>Conocimientos en procesos de fabricación cerámica</li>
+                    <li>Disponibilidad para turnos</li>
+                    <li>Compromiso con la calidad y seguridad</li>
+                </ul>
+            </div>
+            
+            <button class="apply-btn">Enviar Solicitud</button>
+        </div>
+
+        <div class="job-announcement">
+            <h3 class="job-title">🔧 Técnico de Mantenimiento</h3>
+            <div class="job-description">
+                <p>Vacante para técnico especializado en mantenimiento preventivo y correctivo de maquinaria industrial cerámica.</p>
+            </div>
+            
+            <div class="job-requirements">
+                <h4>Requisitos:</h4>
+                <ul>
+                    <li>Experiencia en mantenimiento industrial</li>
+                    <li>Conocimientos en electricidad y mecánica</li>
+                    <li>Habilidad para resolver problemas técnicos</li>
                     <li>Disponibilidad inmediata</li>
                 </ul>
             </div>
             
-            <button class="apply-btn">Postularme a este puesto</button>
-        </div>
-    </section>
-
-    <!-- UBICACIONES -->
-    <section id="ubicaciones" class="section">
-        <h2 class="section-title">Nuestras Instalaciones</h2>
-        <div class="locations-grid">
-            <div class="location-card">
-                <div class="location-icon">🏭</div>
-                <h4 class="location-name">Planta Principal</h4>
-                <div class="location-info">
-                    <p><strong>Dirección:</strong><br>
-                    Carretera Libre Tijuana-Tecate KM 12.5<br>
-                    Tijuana, Baja California</p>
-                    <p><strong>Horario:</strong><br>
-                    Lunes a Viernes: 6:00 AM - 4:00 PM</p>
-                </div>
-            </div>
-
-            <div class="location-card">
-                <div class="location-icon">🏢</div>
-                <h4 class="location-name">Oficinas Corporativas</h4>
-                <div class="location-info">
-                    <p><strong>Dirección:</strong><br>
-                    Blvd. Agua Caliente 1234<br>
-                    Tijuana, Baja California</p>
-                    <p><strong>Horario:</strong><br>
-                    Lunes a Viernes: 8:00 AM - 6:00 PM</p>
-                </div>
-            </div>
-
-            <div class="location-card">
-                <div class="location-icon">📦</div>
-                <h4 class="location-name">Centro de Distribución</h4>
-                <div class="location-info">
-                    <p><strong>Dirección:</strong><br>
-                    Zona Industrial El Florido<br>
-                    Tijuana, Baja California</p>
-                    <p><strong>Horario:</strong><br>
-                    Lunes a Sábado: 7:00 AM - 3:00 PM</p>
-                </div>
-            </div>
+            <button class="apply-btn">Enviar Solicitud</button>
         </div>
     </section>
 
     <!-- CONTACTO -->
-    <section id="contacto" class="section contact-section">
+    <section id="contacto" class="section contact">
         <h2 class="section-title" style="color: white;">Contacto</h2>
         <div class="contact-grid">
             <div class="contact-info">
                 <h3>Información de Contacto</h3>
-                <p>📧 <strong>recursoshumanos@aldremarkz.com</strong></p>
-                <p>📞 <strong>+52 664 234 5678</strong></p>
+                <p>📧 <strong>contacto@aldremarkz.com</strong></p>
+                <p>📞 <strong>+52 664 123 4567</strong></p>
                 <p>📍 <strong>Tijuana, Baja California</strong></p>
             </div>
 
             <div class="contact-info">
-                <h3>Departamento de RH</h3>
-                <p>Para solicitudes de empleo y proceso de reclutamiento</p>
-                <p><strong>Horario de atención:</strong><br>
-                Lunes a Viernes: 8:00 AM - 5:00 PM</p>
+                <h3>Recursos Humanos</h3>
+                <p>Para solicitudes de empleo:</p>
+                <p>📧 <strong>rh@aldremarkz.com</strong></p>
+                <p>📞 <strong>+52 664 123 4568</strong></p>
             </div>
 
             <div class="contact-info">
-                <h3>Síguenos</h3>
-                <p>Mantente informado sobre nuevas vacantes y proyectos</p>
-                <p>📱 LinkedIn: Aldremarkz Industrial</p>
+                <h3>Horarios</h3>
+                <p><strong>Oficinas:</strong> Lunes a Viernes 8:00 AM - 5:00 PM</p>
+                <p><strong>Planta:</strong> Lunes a Sábado 6:00 AM - 4:00 PM</p>
             </div>
         </div>
     </section>
 
     <!-- FOOTER -->
-    <footer class="corporate-footer">
+    <footer>
         <div class="footer-content">
-            <p>&copy; 2024 Aldremarkz - Alfarería Industrial. Todos los derechos reservados.</p>
-            <p style="margin-top: 1rem; opacity: 0.8;">Comprometidos con la calidad y la innovación</p>
+            <p>&copy; 2024 Aldremarkz - Fabricación de Productos de Arcilla. Todos los derechos reservados.</p>
+            <p style="margin-top: 1rem; opacity: 0.8;">Calidad y tradición en cada producto</p>
         </div>
     </footer>
 
@@ -493,7 +573,7 @@
             });
         });
 
-        // Animación para las cards
+        // Animaciones al hacer scroll
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -503,7 +583,7 @@
             });
         });
 
-        document.querySelectorAll('.corporate-card, .job-announcement, .location-card').forEach(el => {
+        document.querySelectorAll('.mv-card, .product-card, .job-announcement').forEach(el => {
             el.style.opacity = '0';
             el.style.transform = 'translateY(20px)';
             el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
