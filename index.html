@@ -400,6 +400,24 @@
             border-radius: 5px;
             font-size: 0.9rem;
         }
+
+        .comunicado {
+            background: #e8f4fd;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border-left: 4px solid #3498db;
+        }
+
+        .comunicado.importante {
+            background: #fff3cd;
+            border-left: 4px solid #f39c12;
+        }
+
+        .comunicado.urgente {
+            background: #f8d7da;
+            border-left: 4px solid #e74c3c;
+        }
     </style>
 </head>
 <body>
@@ -508,7 +526,7 @@
                             </div>
                             
                             <div id="vigenciaFechaSeguridad" style="display: none;">
-                                <input type="date" id="fechaSeguridad" class="form-control" min="<?php echo date('Y-m-d'); ?>">
+                                <input type="date" id="fechaSeguridad" class="form-control">
                             </div>
                         </div>
 
@@ -577,7 +595,7 @@
                             </div>
                             
                             <div id="vigenciaFechaProduccion" style="display: none;">
-                                <input type="date" id="fechaProduccion" class="form-control" min="<?php echo date('Y-m-d'); ?>">
+                                <input type="date" id="fechaProduccion" class="form-control">
                             </div>
                         </div>
 
@@ -645,7 +663,7 @@
                             </div>
                             
                             <div id="vigenciaFechaRH" style="display: none;">
-                                <input type="date" id="fechaRH" class="form-control" min="<?php echo date('Y-m-d'); ?>">
+                                <input type="date" id="fechaRH" class="form-control">
                             </div>
                         </div>
 
@@ -836,7 +854,11 @@
                 document.getElementById(`vigenciaFecha${seccion.charAt(0).toUpperCase() + seccion.slice(1)}`).style.display = 'block';
                 // Establecer fecha mínima como hoy
                 const fechaInput = document.getElementById(`fecha${seccion.charAt(0).toUpperCase() + seccion.slice(1)}`);
-                fechaInput.min = new Date().toISOString().split('T')[0];
+                const hoy = new Date().toISOString().split('T')[0];
+                fechaInput.min = hoy;
+                if (!fechaInput.value) {
+                    fechaInput.value = hoy;
+                }
             }
         }
 
@@ -850,7 +872,20 @@
             }
         }
 
-        function agregarDocumento(seccion) {
+        // Función para leer archivo como Base64 (para descarga)
+        function leerArchivoComoBase64(archivo) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    resolve(e.target.result);
+                };
+                reader.onerror = reject;
+                reader.readAsDataURL(archivo);
+            });
+        }
+
+        // CORRECCIÓN: Función async agregada correctamente
+        async function agregarDocumento(seccion) {
             const titulo = document.getElementById(`titulo${seccion.charAt(0).toUpperCase() + seccion.slice(1)}`).value;
             const codigo = document.getElementById(`codigo${seccion.charAt(0).toUpperCase() + seccion.slice(1)}`).value;
             const archivo = document.getElementById(`archivo${seccion.charAt(0).toUpperCase() + seccion.slice(1)}`).files[0];
@@ -874,6 +909,9 @@
                 fechaVencimiento = new Date(document.getElementById(`fecha${seccion.charAt(0).toUpperCase() + seccion.slice(1)}`).value);
             }
 
+            // CORRECCIÓN: Usar await correctamente
+            const archivoData = await leerArchivoComoBase64(archivo);
+
             const nuevoDocumento = {
                 id: Date.now(),
                 titulo: titulo,
@@ -882,7 +920,7 @@
                 fechaCreacion: new Date().toISOString(),
                 fechaVencimiento: fechaVencimiento.toISOString(),
                 archivo: archivo.name,
-                archivoData: await leerArchivoComoBase64(archivo),
+                archivoData: archivoData,
                 activo: true
             };
 
@@ -894,18 +932,6 @@
             verificarVencimientos();
             
             alert('✅ Documento agregado correctamente');
-        }
-
-        // Función para leer archivo como Base64 (para descarga)
-        function leerArchivoComoBase64(archivo) {
-            return new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    resolve(e.target.result);
-                };
-                reader.onerror = reject;
-                reader.readAsDataURL(archivo);
-            });
         }
 
         function agregarComunicado() {
@@ -931,7 +957,8 @@
             alert('📢 Comunicado publicado correctamente');
         }
 
-        function reemplazarDocumento(seccion, id) {
+        // CORRECCIÓN: Función async para reemplazar documento
+        async function reemplazarDocumento(seccion, id) {
             const archivoInput = document.createElement('input');
             archivoInput.type = 'file';
             archivoInput.accept = '.pdf,.doc,.docx,.xlsx';
@@ -941,8 +968,11 @@
                 if (archivo) {
                     const documentoIndex = documentos[seccion].findIndex(doc => doc.id === id);
                     if (documentoIndex !== -1) {
+                        // CORRECCIÓN: Usar await correctamente
+                        const archivoData = await leerArchivoComoBase64(archivo);
+                        
                         documentos[seccion][documentoIndex].archivo = archivo.name;
-                        documentos[seccion][documentoIndex].archivoData = await leerArchivoComoBase64(archivo);
+                        documentos[seccion][documentoIndex].archivoData = archivoData;
                         documentos[seccion][documentoIndex].fechaCreacion = new Date().toISOString();
                         
                         // Mantener la misma fecha de vencimiento o recalcular según el tipo
@@ -1039,7 +1069,7 @@
             }
 
             lista.innerHTML = comunicadosActivos.map(com => `
-                <div class="comunicado ${com.tipo === 'importante' ? 'importante' : com.tipo === 'urgente' ? 'alert alert-danger' : ''}">
+                <div class="comunicado ${com.tipo === 'importante' ? 'importante' : com.tipo === 'urgente' ? 'urgente' : ''}">
                     <h3 style="color: ${com.tipo === 'importante' ? '#856404' : com.tipo === 'urgente' ? '#721c24' : '#2980b9'}; margin-bottom: 0.5rem;">
                         ${com.tipo === 'importante' ? '⚠️' : com.tipo === 'urgente' ? '🚨' : '📋'} ${com.titulo}
                     </h3>
