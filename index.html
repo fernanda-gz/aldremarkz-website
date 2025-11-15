@@ -4,7 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aldremarkz - Portal Interno</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --gray: #95a5a6;
+            --white: #ffffff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --radius: 10px;
+            --transition: all 0.3s ease;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -12,28 +29,29 @@
         }
 
         body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
-                        url('https://scontent.ftij3-2.fna.fbcdn.net/v/t39.30808-6/300858824_494057869392700_1320970965330356779_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=jag2r5s6W2oQ7kNvwH-gSdz&_nc_oc=AdnI4aaIlvD_sh9O0NmJa4A4SqfhPxP5LnisH7_1UW098s3kYJ9kP0OI4Is1a9Qwqmo&_nc_zt=23&_nc_ht=scontent.ftij3-2.fna&_nc_gid=MIVCPkL2ZHTAypl25jPdXQ&oh=00_AfggHC55fW1LeoykNuHLo-x5UxOkIEeScZeqqhOJxr_xHg&oe=691D75E9');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a2a3a 0%, #2c3e50 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
         }
 
         .login-container {
             background: rgba(255, 255, 255, 0.95);
             padding: 3rem;
-            border-radius: 15px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
             text-align: center;
-            max-width: 400px;
+            max-width: 450px;
             width: 90%;
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: fadeIn 0.8s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .logo {
@@ -42,8 +60,13 @@
             margin: 0 auto 1.5rem auto;
             border-radius: 50%;
             overflow: hidden;
-            border: 4px solid #e74c3c;
+            border: 4px solid var(--accent);
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: var(--transition);
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
         }
 
         .logo img {
@@ -53,57 +76,69 @@
         }
 
         h1 {
-            color: #2c3e50;
+            color: var(--primary);
             margin-bottom: 0.5rem;
-            font-weight: bold;
+            font-weight: 700;
+            font-size: 1.8rem;
         }
 
         .subtitle {
-            color: #7f8c8d;
+            color: var(--gray);
             margin-bottom: 2rem;
             font-weight: 500;
+            font-size: 1rem;
         }
 
         .password-input {
             width: 100%;
             padding: 15px;
-            border: 2px solid #bdc3c7;
+            border: 2px solid var(--light);
             border-radius: 8px;
             font-size: 1rem;
             margin-bottom: 1rem;
             text-align: center;
-            background: white;
-            transition: border-color 0.3s ease;
+            background: var(--white);
+            transition: var(--transition);
+            font-weight: 500;
         }
 
         .password-input:focus {
             outline: none;
-            border-color: #3498db;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
         }
 
         .login-btn {
             width: 100%;
             padding: 15px;
-            background: #e74c3c;
-            color: white;
+            background: var(--accent);
+            color: var(--white);
             border: none;
             border-radius: 8px;
             font-size: 1rem;
             cursor: pointer;
-            transition: background 0.3s ease;
+            transition: var(--transition);
             font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
 
         .login-btn:hover {
             background: #c0392b;
             transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(231, 76, 60, 0.3);
         }
 
         .error-message {
-            color: #e74c3c;
+            color: var(--danger);
             margin-top: 1rem;
             display: none;
             font-weight: bold;
+            background: rgba(231, 76, 60, 0.1);
+            padding: 10px;
+            border-radius: 5px;
         }
 
         /* Estilos del portal interno */
@@ -115,35 +150,86 @@
         }
 
         .portal-header {
-            background: #2c3e50;
-            color: white;
-            padding: 1rem 2rem;
+            background: linear-gradient(135deg, var(--primary) 0%, #1a2530 100%);
+            color: var(--white);
+            padding: 1.2rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-content h1 {
+            color: var(--white);
+            font-size: 1.5rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .header-content p {
+            color: rgba(255,255,255,0.8);
+            font-size: 0.9rem;
+        }
+
+        .logout-btn {
+            background: var(--accent);
+            color: var(--white);
+            padding: 0.7rem 1.2rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: 600;
+        }
+
+        .logout-btn:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
         }
 
         .portal-nav {
-            background: #34495e;
+            background: var(--white);
             padding: 1rem 2rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
 
         .nav-menu {
             display: flex;
             list-style: none;
-            gap: 2rem;
+            gap: 1.5rem;
+            overflow-x: auto;
+            padding-bottom: 5px;
+        }
+
+        .nav-menu::-webkit-scrollbar {
+            height: 5px;
+        }
+
+        .nav-menu::-webkit-scrollbar-thumb {
+            background: var(--gray);
+            border-radius: 10px;
         }
 
         .nav-menu a {
-            color: white;
+            color: var(--dark);
             text-decoration: none;
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
-            transition: background 0.3s ease;
+            padding: 0.7rem 1.2rem;
+            border-radius: 30px;
+            transition: var(--transition);
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
         }
 
         .nav-menu a:hover, .nav-menu a.active {
-            background: #e74c3c;
+            background: var(--secondary);
+            color: var(--white);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(52, 152, 219, 0.3);
         }
 
         .portal-content {
@@ -153,12 +239,13 @@
         }
 
         .section {
-            background: white;
+            background: var(--white);
             padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
             margin-bottom: 2rem;
             display: none;
+            animation: fadeIn 0.5s ease;
         }
 
         .section.active {
@@ -166,10 +253,13 @@
         }
 
         .section h2 {
-            color: #2c3e50;
+            color: var(--primary);
             margin-bottom: 1.5rem;
-            border-bottom: 2px solid #e74c3c;
+            border-bottom: 2px solid var(--accent);
             padding-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         /* Botones de administración */
@@ -177,6 +267,7 @@
             display: flex;
             gap: 1rem;
             margin-bottom: 2rem;
+            flex-wrap: wrap;
         }
 
         .btn {
@@ -185,76 +276,90 @@
             border-radius: 5px;
             cursor: pointer;
             font-weight: bold;
-            transition: all 0.3s ease;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .btn-primary {
-            background: #3498db;
-            color: white;
+            background: var(--secondary);
+            color: var(--white);
         }
 
         .btn-primary:hover {
             background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(52, 152, 219, 0.3);
         }
 
         .btn-success {
-            background: #27ae60;
-            color: white;
+            background: var(--success);
+            color: var(--white);
         }
 
         .btn-success:hover {
             background: #219653;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(39, 174, 96, 0.3);
         }
 
         .btn-warning {
-            background: #f39c12;
-            color: white;
+            background: var(--warning);
+            color: var(--white);
         }
 
         .btn-warning:hover {
             background: #e67e22;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(243, 156, 18, 0.3);
         }
 
         .btn-danger {
-            background: #e74c3c;
-            color: white;
+            background: var(--danger);
+            color: var(--white);
         }
 
         .btn-danger:hover {
             background: #c0392b;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(231, 76, 60, 0.3);
         }
 
         /* Formularios */
         .form-container {
             background: #f8f9fa;
             padding: 2rem;
-            border-radius: 8px;
+            border-radius: var(--radius);
             margin-bottom: 2rem;
             display: none;
+            border-left: 4px solid var(--secondary);
         }
 
         .form-group {
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
         }
 
         .form-group label {
             display: block;
             margin-bottom: 0.5rem;
             font-weight: bold;
-            color: #2c3e50;
+            color: var(--primary);
         }
 
         .form-control {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             border: 2px solid #ddd;
             border-radius: 5px;
             font-size: 1rem;
+            transition: var(--transition);
         }
 
         .form-control:focus {
             outline: none;
-            border-color: #3498db;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
         }
 
         .vigencia-options {
@@ -266,17 +371,18 @@
         .vigencia-option {
             flex: 1;
             text-align: center;
-            padding: 10px;
+            padding: 12px;
             border: 2px solid #ddd;
             border-radius: 5px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: var(--transition);
+            font-weight: 500;
         }
 
         .vigencia-option.selected {
-            background: #3498db;
-            color: white;
-            border-color: #3498db;
+            background: var(--secondary);
+            color: var(--white);
+            border-color: var(--secondary);
         }
 
         /* Listas de documentos */
@@ -285,11 +391,17 @@
         }
 
         .documents-list li {
-            padding: 1rem;
+            padding: 1.5rem;
             border-bottom: 1px solid #eee;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            transition: var(--transition);
+        }
+
+        .documents-list li:hover {
+            background: #f8f9fa;
+            transform: translateX(5px);
         }
 
         .documents-list li:last-child {
@@ -302,14 +414,18 @@
 
         .document-title {
             font-weight: bold;
-            color: #2c3e50;
+            color: var(--primary);
             display: block;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
         }
 
         .document-meta {
-            color: #666;
+            color: var(--gray);
             font-size: 0.9rem;
-            margin-top: 0.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
         }
 
         .document-actions {
@@ -321,70 +437,65 @@
             padding: 1rem;
             border-radius: 5px;
             margin-bottom: 1rem;
+            border-left: 4px solid;
         }
 
         .alert-warning {
             background: #fff3cd;
-            border: 1px solid #ffeaa7;
+            border-color: var(--warning);
             color: #856404;
         }
 
         .alert-danger {
             background: #f8d7da;
-            border: 1px solid #f5c6cb;
+            border-color: var(--danger);
             color: #721c24;
         }
 
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
+            gap: 1.5rem;
             margin-top: 1rem;
         }
 
         .stat-card {
-            background: #f8f9fa;
+            background: var(--white);
             padding: 1.5rem;
-            border-radius: 8px;
+            border-radius: var(--radius);
             text-align: center;
-            border-left: 4px solid #e74c3c;
+            border-left: 4px solid var(--accent);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
         }
 
         .stat-number {
-            font-size: 2rem;
+            font-size: 2.5rem;
             font-weight: bold;
-            color: #2c3e50;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
         }
 
         .stat-label {
-            color: #666;
-            margin-top: 0.5rem;
-        }
-
-        .logout-btn {
-            background: #e74c3c;
-            color: white;
-            padding: 0.5rem 1rem;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-
-        .logout-btn:hover {
-            background: #c0392b;
+            color: var(--gray);
+            font-weight: 500;
         }
 
         .brand-footer {
             margin-top: 1rem;
-            color: #7f8c8d;
+            color: var(--gray);
             font-size: 0.9rem;
         }
 
         .empty-state {
             text-align: center;
             padding: 3rem;
-            color: #666;
+            color: var(--gray);
         }
 
         .empty-state i {
@@ -395,28 +506,35 @@
 
         .file-preview {
             margin-top: 0.5rem;
-            padding: 0.5rem;
+            padding: 0.8rem;
             background: #e8f4fd;
             border-radius: 5px;
             font-size: 0.9rem;
+            border-left: 3px solid var(--secondary);
         }
 
         .comunicado {
             background: #e8f4fd;
             padding: 1.5rem;
-            border-radius: 8px;
+            border-radius: var(--radius);
             margin-bottom: 1rem;
-            border-left: 4px solid #3498db;
+            border-left: 4px solid var(--secondary);
+            transition: var(--transition);
+        }
+
+        .comunicado:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.05);
         }
 
         .comunicado.importante {
             background: #fff3cd;
-            border-left: 4px solid #f39c12;
+            border-left: 4px solid var(--warning);
         }
 
         .comunicado.urgente {
             background: #f8d7da;
-            border-left: 4px solid #e74c3c;
+            border-left: 4px solid var(--danger);
         }
 
         /* Nuevos estilos para submenús */
@@ -429,18 +547,22 @@
         }
 
         .sub-nav-btn {
-            padding: 0.5rem 1rem;
-            background: #f8f9fa;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+            padding: 0.7rem 1.2rem;
+            background: var(--white);
+            border: 2px solid #ddd;
+            border-radius: 30px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
         }
 
         .sub-nav-btn.active {
-            background: #3498db;
-            color: white;
-            border-color: #3498db;
+            background: var(--secondary);
+            color: var(--white);
+            border-color: var(--secondary);
         }
 
         .sub-section {
@@ -453,11 +575,18 @@
 
         /* Estilos para empleados */
         .employee-card {
-            background: #f8f9fa;
+            background: var(--white);
             padding: 1.5rem;
-            border-radius: 8px;
+            border-radius: var(--radius);
             margin-bottom: 1rem;
-            border-left: 4px solid #3498db;
+            border-left: 4px solid var(--secondary);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .employee-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
         }
 
         .employee-header {
@@ -468,9 +597,9 @@
         }
 
         .employee-name {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             font-weight: bold;
-            color: #2c3e50;
+            color: var(--primary);
         }
 
         .employee-details {
@@ -487,12 +616,13 @@
 
         .detail-label {
             font-weight: bold;
-            color: #666;
+            color: var(--gray);
             font-size: 0.9rem;
         }
 
         .detail-value {
-            color: #2c3e50;
+            color: var(--primary);
+            font-weight: 500;
         }
 
         .employee-files {
@@ -508,10 +638,15 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0.5rem;
-            background: white;
+            padding: 0.8rem;
+            background: #f8f9fa;
             border-radius: 5px;
             margin-bottom: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .files-list li:hover {
+            background: #e9ecef;
         }
 
         /* Modal para reemplazo de documentos */
@@ -526,16 +661,24 @@
             z-index: 1000;
             justify-content: center;
             align-items: center;
+            backdrop-filter: blur(5px);
         }
 
         .modal-content {
             background: white;
             padding: 2rem;
-            border-radius: 10px;
+            border-radius: var(--radius);
             width: 90%;
             max-width: 600px;
             max-height: 90vh;
             overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            animation: modalFadeIn 0.3s ease;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
         }
 
         .modal-header {
@@ -549,7 +692,10 @@
 
         .modal-title {
             font-size: 1.5rem;
-            color: #2c3e50;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .close-modal {
@@ -557,11 +703,71 @@
             border: none;
             font-size: 1.5rem;
             cursor: pointer;
-            color: #666;
+            color: var(--gray);
+            transition: var(--transition);
         }
 
         .close-modal:hover {
-            color: #e74c3c;
+            color: var(--danger);
+            transform: rotate(90deg);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .portal-nav {
+                padding: 1rem;
+            }
+            
+            .nav-menu {
+                gap: 0.5rem;
+            }
+            
+            .nav-menu a {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .portal-content {
+                padding: 1rem;
+            }
+            
+            .section {
+                padding: 1.5rem;
+            }
+            
+            .admin-buttons {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .document-actions {
+                flex-direction: column;
+                width: 100%;
+                margin-top: 1rem;
+            }
+            
+            .document-actions .btn {
+                width: 100%;
+            }
+            
+            .documents-list li {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .employee-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .employee-header .document-actions {
+                width: 100%;
+            }
         }
     </style>
 </head>
@@ -575,8 +781,12 @@
         <p class="subtitle">Portal Interno - Acceso Restringido</p>
         
         <input type="password" id="passwordInput" class="password-input" placeholder="Ingresa la contraseña" onkeypress="checkEnter(event)">
-        <button onclick="checkPassword()" class="login-btn">Acceder al Portal</button>
-        <div id="errorMessage" class="error-message">Contraseña incorrecta. Intenta nuevamente.</div>
+        <button onclick="checkPassword()" class="login-btn">
+            <i class="fas fa-lock"></i> Acceder al Portal
+        </button>
+        <div id="errorMessage" class="error-message">
+            <i class="fas fa-exclamation-circle"></i> Contraseña incorrecta. Intenta nuevamente.
+        </div>
         
         <div class="brand-footer">
             Tecate, Baja California
@@ -586,29 +796,31 @@
     <!-- PORTAL INTERNO -->
     <div id="portalScreen" class="portal-container">
         <header class="portal-header">
-            <div>
-                <h1>🏭 Portal Interno Aldremarkz</h1>
+            <div class="header-content">
+                <h1><i class="fas fa-industry"></i> Portal Interno Aldremarkz</h1>
                 <p>Bienvenido al sistema interno de la empresa</p>
             </div>
-            <button onclick="logout()" class="logout-btn">Cerrar Sesión</button>
+            <button onclick="logout()" class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+            </button>
         </header>
 
         <nav class="portal-nav">
             <ul class="nav-menu">
-                <li><a href="#dashboard" class="nav-link active" data-section="dashboard">📊 Dashboard</a></li>
-                <li><a href="#seguridad" class="nav-link" data-section="seguridad">🛡️ Seguridad Industrial</a></li>
-                <li><a href="#produccion" class="nav-link" data-section="produccion">🏭 Producción</a></li>
-                <li><a href="#rh" class="nav-link" data-section="rh">👥 Recursos Humanos</a></li>
-                <li><a href="#contabilidad" class="nav-link" data-section="contabilidad">💰 Contabilidad</a></li>
-                <li><a href="#comunicados" class="nav-link" data-section="comunicados">📢 Comunicados</a></li>
-                <li><a href="#avisos" class="nav-link" data-section="avisos">⚠️ Avisos de Vencimiento</a></li>
+                <li><a href="#dashboard" class="nav-link active" data-section="dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li><a href="#seguridad" class="nav-link" data-section="seguridad"><i class="fas fa-shield-alt"></i> Seguridad</a></li>
+                <li><a href="#produccion" class="nav-link" data-section="produccion"><i class="fas fa-cogs"></i> Producción</a></li>
+                <li><a href="#rh" class="nav-link" data-section="rh"><i class="fas fa-users"></i> Recursos Humanos</a></li>
+                <li><a href="#contabilidad" class="nav-link" data-section="contabilidad"><i class="fas fa-calculator"></i> Contabilidad</a></li>
+                <li><a href="#comunicados" class="nav-link" data-section="comunicados"><i class="fas fa-bullhorn"></i> Comunicados</a></li>
+                <li><a href="#avisos" class="nav-link" data-section="avisos"><i class="fas fa-exclamation-triangle"></i> Avisos</a></li>
             </ul>
         </nav>
 
         <main class="portal-content">
             <!-- DASHBOARD -->
             <section id="dashboard" class="section active">
-                <h2>📊 Dashboard General</h2>
+                <h2><i class="fas fa-tachometer-alt"></i> Dashboard General</h2>
                 <div class="stats-grid">
                     <div class="stat-card">
                         <div class="stat-number" id="totalDocs">0</div>
@@ -631,10 +843,12 @@
 
             <!-- SEGURIDAD INDUSTRIAL -->
             <section id="seguridad" class="section">
-                <h2>🛡️ Seguridad Industrial</h2>
+                <h2><i class="fas fa-shield-alt"></i> Seguridad Industrial</h2>
                 
                 <div class="admin-buttons">
-                    <button class="btn btn-primary" onclick="mostrarFormulario('seguridad')">➕ Agregar Documento</button>
+                    <button class="btn btn-primary" onclick="mostrarFormulario('seguridad')">
+                        <i class="fas fa-plus"></i> Agregar Documento
+                    </button>
                 </div>
 
                 <div id="formSeguridad" class="form-container">
@@ -653,13 +867,13 @@
                             <label>Vigencia:</label>
                             <div class="vigencia-options">
                                 <div class="vigencia-option selected" data-tipo="dias" onclick="seleccionarVigencia(this, 'seguridad')">
-                                    📅 Días
+                                    <i class="fas fa-calendar-day"></i> Días
                                 </div>
                                 <div class="vigencia-option" data-tipo="meses" onclick="seleccionarVigencia(this, 'seguridad')">
-                                    📆 Meses
+                                    <i class="fas fa-calendar-alt"></i> Meses
                                 </div>
                                 <div class="vigencia-option" data-tipo="fecha" onclick="seleccionarVigencia(this, 'seguridad')">
-                                    🗓️ Fecha Específica
+                                    <i class="fas fa-calendar"></i> Fecha Específica
                                 </div>
                             </div>
                             
@@ -682,8 +896,12 @@
                             <div id="previewSeguridad" class="file-preview"></div>
                         </div>
                         <div class="form-group">
-                            <button type="submit" class="btn btn-success">💾 Guardar Documento</button>
-                            <button type="button" class="btn btn-danger" onclick="ocultarFormulario('seguridad')">❌ Cancelar</button>
+                            <button type="submit" class="btn btn-success">
+                                <i class="fas fa-save"></i> Guardar Documento
+                            </button>
+                            <button type="button" class="btn btn-danger" onclick="ocultarFormulario('seguridad')">
+                                <i class="fas fa-times"></i> Cancelar
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -691,7 +909,7 @@
                 <div id="listaSeguridad">
                     <!-- Los documentos se cargarán aquí dinámicamente -->
                     <div class="empty-state">
-                        <div>📄</div>
+                        <i class="fas fa-file-alt"></i>
                         <p>No hay documentos de seguridad industrial cargados</p>
                         <p>Haz clic en "Agregar Documento" para comenzar</p>
                     </div>
@@ -700,10 +918,12 @@
 
             <!-- PRODUCCIÓN -->
             <section id="produccion" class="section">
-                <h2>🏭 Producción</h2>
+                <h2><i class="fas fa-cogs"></i> Producción</h2>
                 
                 <div class="admin-buttons">
-                    <button class="btn btn-primary" onclick="mostrarFormulario('produccion')">➕ Agregar Documento</button>
+                    <button class="btn btn-primary" onclick="mostrarFormulario('produccion')">
+                        <i class="fas fa-plus"></i> Agregar Documento
+                    </button>
                 </div>
 
                 <div id="formProduccion" class="form-container">
@@ -722,13 +942,13 @@
                             <label>Vigencia:</label>
                             <div class="vigencia-options">
                                 <div class="vigencia-option selected" data-tipo="dias" onclick="seleccionarVigencia(this, 'produccion')">
-                                    📅 Días
+                                    <i class="fas fa-calendar-day"></i> Días
                                 </div>
                                 <div class="vigencia-option" data-tipo="meses" onclick="seleccionarVigencia(this, 'produccion')">
-                                    📆 Meses
+                                    <i class="fas fa-calendar-alt"></i> Meses
                                 </div>
                                 <div class="vigencia-option" data-tipo="fecha" onclick="seleccionarVigencia(this, 'produccion')">
-                                    🗓️ Fecha Específica
+                                    <i class="fas fa-calendar"></i> Fecha Específica
                                 </div>
                             </div>
                             
@@ -751,15 +971,19 @@
                             <div id="previewProduccion" class="file-preview"></div>
                         </div>
                         <div class="form-group">
-                            <button type="submit" class="btn btn-success">💾 Guardar Documento</button>
-                            <button type="button" class="btn btn-danger" onclick="ocultarFormulario('produccion')">❌ Cancelar</button>
+                            <button type="submit" class="btn btn-success">
+                                <i class="fas fa-save"></i> Guardar Documento
+                            </button>
+                            <button type="button" class="btn btn-danger" onclick="ocultarFormulario('produccion')">
+                                <i class="fas fa-times"></i> Cancelar
+                            </button>
                         </div>
                     </form>
                 </div>
 
                 <div id="listaProduccion">
                     <div class="empty-state">
-                        <div>📊</div>
+                        <i class="fas fa-chart-bar"></i>
                         <p>No hay documentos de producción cargados</p>
                         <p>Haz clic en "Agregar Documento" para comenzar</p>
                     </div>
@@ -768,17 +992,23 @@
 
             <!-- RECURSOS HUMANOS -->
             <section id="rh" class="section">
-                <h2>👥 Recursos Humanos</h2>
+                <h2><i class="fas fa-users"></i> Recursos Humanos</h2>
                 
                 <div class="sub-nav">
-                    <button class="sub-nav-btn active" data-subsection="documentos">📄 Documentos</button>
-                    <button class="sub-nav-btn" data-subsection="empleados">👥 Empleados</button>
+                    <button class="sub-nav-btn active" data-subsection="documentos">
+                        <i class="fas fa-file-alt"></i> Documentos
+                    </button>
+                    <button class="sub-nav-btn" data-subsection="empleados">
+                        <i class="fas fa-user-tie"></i> Empleados
+                    </button>
                 </div>
 
                 <!-- SUBSECCIÓN DOCUMENTOS -->
                 <div id="documentosRH" class="sub-section active">
                     <div class="admin-buttons">
-                        <button class="btn btn-primary" onclick="mostrarFormulario('rh')">➕ Agregar Documento</button>
+                        <button class="btn btn-primary" onclick="mostrarFormulario('rh')">
+                            <i class="fas fa-plus"></i> Agregar Documento
+                        </button>
                     </div>
 
                     <div id="formRH" class="form-container">
@@ -797,13 +1027,13 @@
                                 <label>Vigencia:</label>
                                 <div class="vigencia-options">
                                     <div class="vigencia-option selected" data-tipo="dias" onclick="seleccionarVigencia(this, 'rh')">
-                                        📅 Días
+                                        <i class="fas fa-calendar-day"></i> Días
                                     </div>
                                     <div class="vigencia-option" data-tipo="meses" onclick="seleccionarVigencia(this, 'rh')">
-                                        📆 Meses
+                                        <i class="fas fa-calendar-alt"></i> Meses
                                     </div>
                                     <div class="vigencia-option" data-tipo="fecha" onclick="seleccionarVigencia(this, 'rh')">
-                                        🗓️ Fecha Específica
+                                        <i class="fas fa-calendar"></i> Fecha Específica
                                     </div>
                                 </div>
                                 
@@ -826,15 +1056,19 @@
                                 <div id="previewRH" class="file-preview"></div>
                             </div>
                             <div class="form-group">
-                                <button type="submit" class="btn btn-success">💾 Guardar Documento</button>
-                                <button type="button" class="btn btn-danger" onclick="ocultarFormulario('rh')">❌ Cancelar</button>
+                                <button type="submit" class="btn btn-success">
+                                    <i class="fas fa-save"></i> Guardar Documento
+                                </button>
+                                <button type="button" class="btn btn-danger" onclick="ocultarFormulario('rh')">
+                                    <i class="fas fa-times"></i> Cancelar
+                                </button>
                             </div>
                         </form>
                     </div>
 
                     <div id="listaRH">
                         <div class="empty-state">
-                            <div>👥</div>
+                            <i class="fas fa-users"></i>
                             <p>No hay documentos de recursos humanos cargados</p>
                             <p>Haz clic en "Agregar Documento" para comenzar</p>
                         </div>
@@ -844,7 +1078,9 @@
                 <!-- SUBSECCIÓN EMPLEADOS -->
                 <div id="empleadosRH" class="sub-section">
                     <div class="admin-buttons">
-                        <button class="btn btn-primary" onclick="mostrarFormularioEmpleado()">➕ Agregar Empleado</button>
+                        <button class="btn btn-primary" onclick="mostrarFormularioEmpleado()">
+                            <i class="fas fa-plus"></i> Agregar Empleado
+                        </button>
                     </div>
 
                     <div id="formEmpleado" class="form-container">
@@ -872,15 +1108,19 @@
                                 <div id="previewEmpleado" class="file-preview"></div>
                             </div>
                             <div class="form-group">
-                                <button type="submit" class="btn btn-success">💾 Guardar Empleado</button>
-                                <button type="button" class="btn btn-danger" onclick="ocultarFormularioEmpleado()">❌ Cancelar</button>
+                                <button type="submit" class="btn btn-success">
+                                    <i class="fas fa-save"></i> Guardar Empleado
+                                </button>
+                                <button type="button" class="btn btn-danger" onclick="ocultarFormularioEmpleado()">
+                                    <i class="fas fa-times"></i> Cancelar
+                                </button>
                             </div>
                         </form>
                     </div>
 
                     <div id="listaEmpleados">
                         <div class="empty-state">
-                            <div>👥</div>
+                            <i class="fas fa-user-tie"></i>
                             <p>No hay empleados registrados</p>
                             <p>Haz clic en "Agregar Empleado" para comenzar</p>
                         </div>
@@ -890,10 +1130,12 @@
 
             <!-- CONTABILIDAD -->
             <section id="contabilidad" class="section">
-                <h2>💰 Contabilidad</h2>
+                <h2><i class="fas fa-calculator"></i> Contabilidad</h2>
                 
                 <div class="admin-buttons">
-                    <button class="btn btn-primary" onclick="mostrarFormulario('contabilidad')">➕ Agregar Documento</button>
+                    <button class="btn btn-primary" onclick="mostrarFormulario('contabilidad')">
+                        <i class="fas fa-plus"></i> Agregar Documento
+                    </button>
                 </div>
 
                 <div id="formContabilidad" class="form-container">
@@ -912,13 +1154,13 @@
                             <label>Vigencia:</label>
                             <div class="vigencia-options">
                                 <div class="vigencia-option selected" data-tipo="dias" onclick="seleccionarVigencia(this, 'contabilidad')">
-                                    📅 Días
+                                    <i class="fas fa-calendar-day"></i> Días
                                 </div>
                                 <div class="vigencia-option" data-tipo="meses" onclick="seleccionarVigencia(this, 'contabilidad')">
-                                    📆 Meses
+                                    <i class="fas fa-calendar-alt"></i> Meses
                                 </div>
                                 <div class="vigencia-option" data-tipo="fecha" onclick="seleccionarVigencia(this, 'contabilidad')">
-                                    🗓️ Fecha Específica
+                                    <i class="fas fa-calendar"></i> Fecha Específica
                                 </div>
                             </div>
                             
@@ -941,15 +1183,19 @@
                             <div id="previewContabilidad" class="file-preview"></div>
                         </div>
                         <div class="form-group">
-                            <button type="submit" class="btn btn-success">💾 Guardar Documento</button>
-                            <button type="button" class="btn btn-danger" onclick="ocultarFormulario('contabilidad')">❌ Cancelar</button>
+                            <button type="submit" class="btn btn-success">
+                                <i class="fas fa-save"></i> Guardar Documento
+                            </button>
+                            <button type="button" class="btn btn-danger" onclick="ocultarFormulario('contabilidad')">
+                                <i class="fas fa-times"></i> Cancelar
+                            </button>
                         </div>
                     </form>
                 </div>
 
                 <div id="listaContabilidad">
                     <div class="empty-state">
-                        <div>💰</div>
+                        <i class="fas fa-calculator"></i>
                         <p>No hay documentos de contabilidad cargados</p>
                         <p>Haz clic en "Agregar Documento" para comenzar</p>
                     </div>
@@ -958,10 +1204,12 @@
 
             <!-- COMUNICADOS -->
             <section id="comunicados" class="section">
-                <h2>📢 Comunicados Internos</h2>
+                <h2><i class="fas fa-bullhorn"></i> Comunicados Internos</h2>
                 
                 <div class="admin-buttons">
-                    <button class="btn btn-primary" onclick="mostrarFormularioComunicado()">➕ Nuevo Comunicado</button>
+                    <button class="btn btn-primary" onclick="mostrarFormularioComunicado()">
+                        <i class="fas fa-plus"></i> Nuevo Comunicado
+                    </button>
                 </div>
 
                 <div id="formComunicado" class="form-container">
@@ -978,21 +1226,25 @@
                         <div class="form-group">
                             <label for="tipoComunicado">Tipo:</label>
                             <select id="tipoComunicado" class="form-control">
-                                <option value="normal">📋 Normal</option>
-                                <option value="importante">⚠️ Importante</option>
-                                <option value="urgente">🚨 Urgente</option>
+                                <option value="normal"><i class="fas fa-info-circle"></i> Normal</option>
+                                <option value="importante"><i class="fas fa-exclamation-triangle"></i> Importante</option>
+                                <option value="urgente"><i class="fas fa-exclamation-circle"></i> Urgente</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <button type="submit" class="btn btn-success">📢 Publicar Comunicado</button>
-                            <button type="button" class="btn btn-danger" onclick="ocultarFormularioComunicado()">❌ Cancelar</button>
+                            <button type="submit" class="btn btn-success">
+                                <i class="fas fa-bullhorn"></i> Publicar Comunicado
+                            </button>
+                            <button type="button" class="btn btn-danger" onclick="ocultarFormularioComunicado()">
+                                <i class="fas fa-times"></i> Cancelar
+                            </button>
                         </div>
                     </form>
                 </div>
 
                 <div id="listaComunicados">
                     <div class="empty-state">
-                        <div>📢</div>
+                        <i class="fas fa-bullhorn"></i>
                         <p>No hay comunicados activos</p>
                         <p>Haz clic en "Nuevo Comunicado" para comenzar</p>
                     </div>
@@ -1001,10 +1253,10 @@
 
             <!-- AVISOS DE VENCIMIENTO -->
             <section id="avisos" class="section">
-                <h2>⚠️ Avisos de Vencimiento</h2>
+                <h2><i class="fas fa-exclamation-triangle"></i> Avisos de Vencimiento</h2>
                 <div id="listaAvisos">
                     <div class="empty-state">
-                        <div>✅</div>
+                        <i class="fas fa-check-circle"></i>
                         <p>No hay documentos próximos a vencer</p>
                         <p>Los avisos aparecerán aquí 1 mes antes del vencimiento</p>
                     </div>
@@ -1017,7 +1269,7 @@
     <div id="modalReemplazo" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title">🔄 Reemplazar Documento</h3>
+                <h3 class="modal-title"><i class="fas fa-sync-alt"></i> Reemplazar Documento</h3>
                 <button class="close-modal" onclick="cerrarModalReemplazo()">&times;</button>
             </div>
             <form id="formReemplazo" onsubmit="procesarReemplazo(); return false;">
@@ -1034,13 +1286,13 @@
                     <label>Vigencia:</label>
                     <div class="vigencia-options">
                         <div class="vigencia-option selected" data-tipo="dias" onclick="seleccionarVigenciaModal(this)">
-                            📅 Días
+                            <i class="fas fa-calendar-day"></i> Días
                         </div>
                         <div class="vigencia-option" data-tipo="meses" onclick="seleccionarVigenciaModal(this)">
-                            📆 Meses
+                            <i class="fas fa-calendar-alt"></i> Meses
                         </div>
                         <div class="vigencia-option" data-tipo="fecha" onclick="seleccionarVigenciaModal(this)">
-                            🗓️ Fecha Específica
+                            <i class="fas fa-calendar"></i> Fecha Específica
                         </div>
                     </div>
                     
@@ -1063,8 +1315,12 @@
                     <div id="previewReemplazo" class="file-preview"></div>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-success">💾 Guardar Cambios</button>
-                    <button type="button" class="btn btn-danger" onclick="cerrarModalReemplazo()">❌ Cancelar</button>
+                    <button type="submit" class="btn btn-success">
+                        <i class="fas fa-save"></i> Guardar Cambios
+                    </button>
+                    <button type="button" class="btn btn-danger" onclick="cerrarModalReemplazo()">
+                        <i class="fas fa-times"></i> Cancelar
+                    </button>
                 </div>
             </form>
         </div>
@@ -1259,7 +1515,7 @@
             const preview = document.getElementById(previewId);
             if (input.files && input.files[0]) {
                 const file = input.files[0];
-                preview.innerHTML = `📎 Archivo seleccionado: <strong>${file.name}</strong> (${(file.size / 1024).toFixed(2)} KB)`;
+                preview.innerHTML = `<i class="fas fa-file"></i> Archivo seleccionado: <strong>${file.name}</strong> (${(file.size / 1024).toFixed(2)} KB)`;
             } else {
                 preview.innerHTML = '';
             }
@@ -1271,7 +1527,7 @@
                 let html = `<strong>Archivos seleccionados:</strong><ul>`;
                 for (let i = 0; i < input.files.length; i++) {
                     const file = input.files[i];
-                    html += `<li>📎 ${file.name} (${(file.size / 1024).toFixed(2)} KB)</li>`;
+                    html += `<li><i class="fas fa-file"></i> ${file.name} (${(file.size / 1024).toFixed(2)} KB)</li>`;
                 }
                 html += `</ul>`;
                 preview.innerHTML = html;
@@ -1513,7 +1769,7 @@
             if (documentosSeccion.length === 0) {
                 lista.innerHTML = `
                     <div class="empty-state">
-                        <div>${seccion === 'seguridad' ? '🛡️' : seccion === 'produccion' ? '🏭' : seccion === 'rh' ? '👥' : '💰'}</div>
+                        <i class="fas fa-${seccion === 'seguridad' ? 'shield-alt' : seccion === 'produccion' ? 'cogs' : seccion === 'rh' ? 'users' : 'calculator'}"></i>
                         <p>No hay documentos de ${seccion} cargados</p>
                         <p>Haz clic en "Agregar Documento" para comenzar</p>
                     </div>
@@ -1528,9 +1784,9 @@
                 
                 let estado = '';
                 if (diasRestantes <= 30) {
-                    estado = `<span style="color: #e74c3c; font-weight: bold;">⏰ Vence en ${diasRestantes} días</span>`;
+                    estado = `<span style="color: #e74c3c; font-weight: bold;"><i class="fas fa-clock"></i> Vence en ${diasRestantes} días</span>`;
                 } else {
-                    estado = `<span style="color: #27ae60;">✅ Vigente</span>`;
+                    estado = `<span style="color: #27ae60;"><i class="fas fa-check-circle"></i> Vigente</span>`;
                 }
 
                 return `
@@ -1538,15 +1794,19 @@
                         <div class="document-info">
                             <span class="document-title">${doc.titulo}</span>
                             <div class="document-meta">
-                                <strong>Código:</strong> ${doc.codigo} | 
-                                <strong>Creado:</strong> ${new Date(doc.fechaCreacion).toLocaleDateString()} |
-                                <strong>Vence:</strong> ${fechaVencimiento.toLocaleDateString()} |
-                                ${estado}
+                                <span><i class="fas fa-hashtag"></i> <strong>Código:</strong> ${doc.codigo}</span>
+                                <span><i class="fas fa-calendar-plus"></i> <strong>Creado:</strong> ${new Date(doc.fechaCreacion).toLocaleDateString()}</span>
+                                <span><i class="fas fa-calendar-times"></i> <strong>Vence:</strong> ${fechaVencimiento.toLocaleDateString()}</span>
+                                <span>${estado}</span>
                             </div>
                         </div>
                         <div class="document-actions">
-                            <button class="btn btn-primary" onclick="descargarDocumento('${seccion}', ${doc.id})">📥 Descargar</button>
-                            <button class="btn btn-warning" onclick="reemplazarDocumento('${seccion}', ${doc.id})">🔄 Reemplazar</button>
+                            <button class="btn btn-primary" onclick="descargarDocumento('${seccion}', ${doc.id})">
+                                <i class="fas fa-download"></i> Descargar
+                            </button>
+                            <button class="btn btn-warning" onclick="reemplazarDocumento('${seccion}', ${doc.id})">
+                                <i class="fas fa-sync-alt"></i> Reemplazar
+                            </button>
                         </div>
                     </li>
                 `;
@@ -1560,7 +1820,7 @@
             if (empleadosActivos.length === 0) {
                 lista.innerHTML = `
                     <div class="empty-state">
-                        <div>👥</div>
+                        <i class="fas fa-user-tie"></i>
                         <p>No hay empleados registrados</p>
                         <p>Haz clic en "Agregar Empleado" para comenzar</p>
                     </div>
@@ -1574,8 +1834,12 @@
                         <div class="employee-header">
                             <div class="employee-name">${emp.nombre}</div>
                             <div class="document-actions">
-                                <button class="btn btn-primary" onclick="descargarArchivosEmpleado(${emp.id})">📥 Descargar Archivos</button>
-                                <button class="btn btn-danger" onclick="eliminarEmpleado(${emp.id})">🗑️ Eliminar</button>
+                                <button class="btn btn-primary" onclick="descargarArchivosEmpleado(${emp.id})">
+                                    <i class="fas fa-download"></i> Descargar Archivos
+                                </button>
+                                <button class="btn btn-danger" onclick="eliminarEmpleado(${emp.id})">
+                                    <i class="fas fa-trash"></i> Eliminar
+                                </button>
                             </div>
                         </div>
                         <div class="employee-details">
@@ -1600,7 +1864,7 @@
                             <strong>Archivos del empleado:</strong>
                             <ul class="files-list">
                                 ${emp.archivos.map(archivo => `
-                                    <li>📎 ${archivo.nombre} (${(archivo.tamaño / 1024).toFixed(2)} KB)</li>
+                                    <li><i class="fas fa-file"></i> ${archivo.nombre} (${(archivo.tamaño / 1024).toFixed(2)} KB)</li>
                                 `).join('')}
                             </ul>
                         </div>
@@ -1616,7 +1880,7 @@
             if (comunicadosActivos.length === 0) {
                 lista.innerHTML = `
                     <div class="empty-state">
-                        <div>📢</div>
+                        <i class="fas fa-bullhorn"></i>
                         <p>No hay comunicados activos</p>
                         <p>Haz clic en "Nuevo Comunicado" para comenzar</p>
                     </div>
@@ -1627,12 +1891,14 @@
             lista.innerHTML = comunicadosActivos.map(com => `
                 <div class="comunicado ${com.tipo === 'importante' ? 'importante' : com.tipo === 'urgente' ? 'urgente' : ''}">
                     <h3 style="color: ${com.tipo === 'importante' ? '#856404' : com.tipo === 'urgente' ? '#721c24' : '#2980b9'}; margin-bottom: 0.5rem;">
-                        ${com.tipo === 'importante' ? '⚠️' : com.tipo === 'urgente' ? '🚨' : '📋'} ${com.titulo}
+                        ${com.tipo === 'importante' ? '<i class="fas fa-exclamation-triangle"></i>' : com.tipo === 'urgente' ? '<i class="fas fa-exclamation-circle"></i>' : '<i class="fas fa-info-circle"></i>'} ${com.titulo}
                     </h3>
                     <p>${com.contenido}</p>
-                    <small style="color: #666;">Publicado: ${new Date(com.fecha).toLocaleDateString()}</small>
+                    <small style="color: #666;"><i class="fas fa-calendar"></i> Publicado: ${new Date(com.fecha).toLocaleDateString()}</small>
                     <div style="margin-top: 1rem;">
-                        <button class="btn btn-danger" onclick="eliminarComunicado(${com.id})">🗑️ Eliminar</button>
+                        <button class="btn btn-danger" onclick="eliminarComunicado(${com.id})">
+                            <i class="fas fa-trash"></i> Eliminar
+                        </button>
                     </div>
                 </div>
             `).join('');
@@ -1724,7 +1990,7 @@
             if (avisos.length === 0) {
                 listaAvisos.innerHTML = `
                     <div class="empty-state">
-                        <div>✅</div>
+                        <i class="fas fa-check-circle"></i>
                         <p>No hay documentos próximos a vencer</p>
                         <p>Los avisos aparecerán aquí 1 mes antes del vencimiento</p>
                     </div>
@@ -1734,13 +2000,13 @@
                     const documento = documentos[aviso.seccion].find(doc => doc.codigo === aviso.codigo);
                     return `
                         <div class="alert alert-warning">
-                            <strong>⚠️ AVISO DE VENCIMIENTO</strong><br>
+                            <strong><i class="fas fa-exclamation-triangle"></i> AVISO DE VENCIMIENTO</strong><br>
                             <strong>Documento:</strong> ${aviso.titulo} (${aviso.codigo})<br>
                             <strong>Sección:</strong> ${aviso.seccion}<br>
                             <strong>Vence en:</strong> ${aviso.diasRestantes} días<br>
                             <strong>Fecha de vencimiento:</strong> ${aviso.fechaVencimiento.toLocaleDateString()}<br>
                             <button class="btn btn-warning" onclick="reemplazarDocumento('${aviso.seccion}', ${documento.id})" style="margin-top: 0.5rem;">
-                                🔄 Reemplazar Documento
+                                <i class="fas fa-sync-alt"></i> Reemplazar Documento
                             </button>
                         </div>
                     `;
