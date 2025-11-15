@@ -1667,10 +1667,15 @@
             alert('📢 Comunicado publicado correctamente');
         }
 
-        // Función para abrir modal de reemplazo
+        // CORRECCIÓN: Función corregida para reemplazar documento
         function reemplazarDocumento(seccion, id) {
-            const documento = documentos[seccion].find(doc => doc.id === id);
+            console.log("Reemplazando documento:", seccion, id);
+            
+            // Buscar el documento por ID
+            const documento = documentos[seccion].find(doc => doc.id == id);
+            
             if (documento) {
+                console.log("Documento encontrado:", documento);
                 documentoReemplazo = documento;
                 seccionReemplazo = seccion;
                 
@@ -1684,10 +1689,18 @@
                 
                 if (tipoVigencia === 'dias') {
                     elementoVigencia = document.querySelector('#modalReemplazo .vigencia-option[data-tipo="dias"]');
-                    document.getElementById('diasModal').value = Math.ceil((new Date(documento.fechaVencimiento) - new Date(documento.fechaCreacion)) / (24 * 60 * 60 * 1000));
+                    // Calcular días restantes desde la fecha de creación
+                    const fechaCreacion = new Date(documento.fechaCreacion);
+                    const fechaVencimiento = new Date(documento.fechaVencimiento);
+                    const diferenciaDias = Math.ceil((fechaVencimiento - fechaCreacion) / (1000 * 60 * 60 * 24));
+                    document.getElementById('diasModal').value = diferenciaDias;
                 } else if (tipoVigencia === 'meses') {
                     elementoVigencia = document.querySelector('#modalReemplazo .vigencia-option[data-tipo="meses"]');
-                    document.getElementById('mesesModal').value = Math.ceil((new Date(documento.fechaVencimiento) - new Date(documento.fechaCreacion)) / (30 * 24 * 60 * 60 * 1000));
+                    // Calcular meses restantes desde la fecha de creación
+                    const fechaCreacion = new Date(documento.fechaCreacion);
+                    const fechaVencimiento = new Date(documento.fechaVencimiento);
+                    const diferenciaMeses = Math.ceil((fechaVencimiento - fechaCreacion) / (1000 * 60 * 60 * 24 * 30));
+                    document.getElementById('mesesModal').value = diferenciaMeses;
                 } else if (tipoVigencia === 'fecha') {
                     elementoVigencia = document.querySelector('#modalReemplazo .vigencia-option[data-tipo="fecha"]');
                     document.getElementById('fechaModal').value = new Date(documento.fechaVencimiento).toISOString().split('T')[0];
@@ -1697,6 +1710,9 @@
                 
                 // Mostrar el modal
                 document.getElementById('modalReemplazo').style.display = 'flex';
+            } else {
+                console.error("Documento no encontrado");
+                alert('Error: No se pudo encontrar el documento para reemplazar');
             }
         }
 
@@ -1905,7 +1921,7 @@
         }
 
         function descargarDocumento(seccion, id) {
-            const documento = documentos[seccion].find(doc => doc.id === id);
+            const documento = documentos[seccion].find(doc => doc.id == id);
             if (documento && documento.archivoData) {
                 // Crear enlace de descarga
                 const link = document.createElement('a');
@@ -1920,7 +1936,7 @@
         }
 
         function descargarArchivosEmpleado(id) {
-            const empleado = empleados.find(emp => emp.id === id);
+            const empleado = empleados.find(emp => emp.id == id);
             if (empleado && empleado.archivos.length > 0) {
                 // Descargar cada archivo individualmente
                 empleado.archivos.forEach(archivo => {
@@ -1938,7 +1954,7 @@
 
         function eliminarComunicado(id) {
             if (confirm('¿Estás seguro de que quieres eliminar este comunicado?')) {
-                const comunicadoIndex = comunicados.findIndex(com => com.id === id);
+                const comunicadoIndex = comunicados.findIndex(com => com.id == id);
                 if (comunicadoIndex !== -1) {
                     comunicados[comunicadoIndex].activo = false;
                     guardarDatos();
@@ -1950,7 +1966,7 @@
 
         function eliminarEmpleado(id) {
             if (confirm('¿Estás seguro de que quieres eliminar este empleado?')) {
-                const empleadoIndex = empleados.findIndex(emp => emp.id === id);
+                const empleadoIndex = empleados.findIndex(emp => emp.id == id);
                 if (empleadoIndex !== -1) {
                     empleados[empleadoIndex].activo = false;
                     guardarDatos();
